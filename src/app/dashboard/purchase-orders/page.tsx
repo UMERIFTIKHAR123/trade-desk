@@ -41,14 +41,14 @@ export default async function PurchaseOrders({ searchParams }: Props) {
 
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-4xl font-bold tracking-tight mb-2 flex "><ReceiptText size={34} className="mr-2 self-end" /> Products</h1>
+          <h1 className="text-4xl font-bold tracking-tight mb-2 flex "><ReceiptText size={34} className="mr-2 self-end" />Purchase Orders</h1>
           <p className="text-muted-foreground">
             Manage your purchase orders
           </p>
         </div>
         <div className="flex items-center gap-3">
           <Button asChild size="lg">
-            <Link href="/dashboard/purchase-order/create-v3">
+            <Link href="/dashboard/purchase-orders/create-v3">
               <Plus className="h-5 w-5 mr-2" />
               New Purchase Order
             </Link>

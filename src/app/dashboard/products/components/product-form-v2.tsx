@@ -25,7 +25,8 @@ import {
   DollarSign,
   Tag,
   FileText,
-  AlertCircle
+  AlertCircle,
+  Euro
 } from "lucide-react";
 import Image from "next/image";
 
@@ -237,7 +238,7 @@ export function ProductFormV2({
                       <FormLabel>Price</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <DollarSign className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
+                          <Euro className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
                           <Input
                             type="number"
                             step="0.01"

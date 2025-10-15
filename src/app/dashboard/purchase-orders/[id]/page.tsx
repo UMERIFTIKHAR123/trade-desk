@@ -83,10 +83,10 @@ export default async function PurchaseOrderDetail({ params }: Props) {
           <p className="text-gray-600">Order ID: {purchaseOrder.orderNo.toString().padStart(4, '0')}</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline">
+          {/* <Button variant="outline">
             <Receipt className="mr-2 h-4 w-4" />
             Download PDF
-          </Button>
+          </Button> */}
           <Link href={`/dashboard/purchase-orders/${purchaseOrder.id}/edit-v2`}>
             <Button>Edit Order</Button>
           </Link>
