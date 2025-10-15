@@ -15,10 +15,11 @@ import { TableActions } from "./components/table-actions";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Boxes, Plus } from "lucide-react";
+import { getCategories } from "@/lib/get-categories";
 
 export default async function CategoryPage() {
 
-  const categories = await prisma.category.findMany();
+   const categories = await getCategories();
 
   return (
     <div>

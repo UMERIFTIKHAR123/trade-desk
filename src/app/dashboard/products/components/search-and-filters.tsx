@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import prisma from "@/lib/prisma";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Search } from "lucide-react";
+import { getCategories } from "@/lib/get-categories";
 
 export function SearchAndFilters({
   search,
@@ -32,9 +33,7 @@ export function SearchAndFilters({
 }
 
 async function CategoryFilter({ categoryId }: { categoryId: string }) {
-  const categories = await prisma.category.findMany({
-    orderBy: { name: "asc" },
-  });
+  const categories = await getCategories();
 
   return (
     <Select name="categoryId" defaultValue={categoryId || "all"}>

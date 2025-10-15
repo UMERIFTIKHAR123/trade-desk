@@ -3,7 +3,7 @@
 import { ServerActionResponse } from '@/app/types/server-action-response';
 import prisma from '@/lib/prisma';
 import { Category } from '@prisma/client';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 type CreateCategory = Omit<Category, 'id' | 'createdAt' | 'updatedAt'>;
 
@@ -27,7 +27,8 @@ export async function createCategory(data: CreateCategory): Promise<ServerAction
       data,
     });
 
-    revalidatePath('/dashboard/categories')
+    revalidateTag("categories");
+    // revalidatePath('/dashboard/categories')
 
     return {
       success: true,
@@ -65,7 +66,7 @@ export async function updateCategory(id: string, data: CreateCategory): Promise<
       data,
     });
 
-    revalidatePath('/dashboard/categories')
+    revalidateTag("categories");
 
     return {
       success: true,
@@ -90,7 +91,7 @@ export async function deleteCategory(id: string): Promise<ServerActionResponse<n
       where: { id }
     });
 
-    revalidatePath('/dashboard/categories')
+    revalidateTag("categories");
 
     return {
       success: true,

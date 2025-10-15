@@ -2,10 +2,11 @@ import Link from "next/dist/client/link"
 import prisma from "@/lib/prisma"
 import { ProductFormV2 } from "../components/product-form-v2";
 import { ArrowLeft } from "lucide-react";
+import { getCategories } from "@/lib/get-categories";
 
 export default async function NewProductPage() {
 
-  const categories = await prisma.category.findMany();
+  const categories = await getCategories();
 
   return (
     <div className="space-y-6">

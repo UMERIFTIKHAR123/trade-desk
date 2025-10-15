@@ -4,6 +4,7 @@ import Link from "next/dist/client/link"
 import { ArrowLeft, Calendar } from "lucide-react"
 import { formatDate } from "@/lib/utils"
 import { ProductFormV2 } from "../../components/product-form-v2"
+import { getCategories } from "@/lib/get-categories"
 
 interface Props {
   params: Promise<{ id: string }>
@@ -20,7 +21,7 @@ export default async function EditProductPage({ params }: Props) {
     notFound()
   }
 
-  const categories = await prisma.category.findMany();
+  const categories = await getCategories();
 
   return (
     <div className="space-y-6">
