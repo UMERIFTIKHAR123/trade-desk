@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id        String    @id @default(uuid()) @db.Uuid
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[]
+}
+
+model Product {
+  id                String              @id @default(uuid()) @db.Uuid
+  name              String
+  description       String?
+  price             Float
+  imageUrl          String?
+  imagePath         String?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  categoryId        String              @db.Uuid
+  category          Category            @relation(fields: [categoryId], references: [id])
+  PurchaseOrderItem PurchaseOrderItem[]
+  isDeleted         Boolean             @default(false)
+  VendorProductRate VendorProductRate[]
+}
+
+model Customer {
+  id            String          @id @default(cuid())
+  name          String
+  email         String?         @unique
+  phone         String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  PurchaseOrder PurchaseOrder[]
+}
+
+model PurchaseOrder {
+  id          String              @id @default(cuid())
+  orderNo     Int                 @unique @default(autoincrement())
+  customerId  String
+  totalAmount Float
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  customer    Customer            @relation(fields: [customerId], references: [id])
+  items       PurchaseOrderItem[]
+}
+
+model PurchaseOrderItem {
+  id              String        @id @default(cuid())
+  purchaseOrderId String
+  productId       String        @db.Uuid
+  quantity        Int
+  unitPrice       Float
+  dto             Float         @default(0)
+  iva             Float         @default(0)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  purchaseOrder   PurchaseOrder @relation(fields: [purchaseOrderId], references: [id])
+  product         Product       @relation(fields: [productId], references: [id])
+}
+
+model Vendor {
+  id                String              @id @default(cuid())
+  name              String
+  email             String?             @unique
+  phone             String?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  VendorProductRate VendorProductRate[]
+}
+
+model VendorProductRate {
+  id        String   @id @default(cuid())
+  vendorId  String
+  productId String   @db.Uuid
+  rate      Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  vendor  Vendor  @relation(fields: [vendorId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  @@unique([vendorId, productId])
+}
