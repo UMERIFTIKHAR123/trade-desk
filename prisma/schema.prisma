@@ -63,7 +63,7 @@ model PurchaseOrderItem {
   purchaseOrderId String
   productId       String        @db.Uuid
   quantity        Int
-  unitPrice       Float
+  price           Float         @default(0)
   dto             Float         @default(0)
   iva             Float         @default(0)
   createdAt       DateTime      @default(now())
