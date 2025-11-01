@@ -1,14 +1,14 @@
 'use client';
 
-import { Form } from "../../../../../../src-old/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { PurchaseOrderFormData } from "../../hooks/use-purchase-order-form";
 import { CustomerSelector } from "../../components/customer-selector";
 import { Category, Customer, Product } from "@prisma/client";
 import { OrderSummaryCard } from "../../components/order-summary-card";
 import { OrderItemList } from "../../components/order-item-list";
-import { Button } from "../../../../../../src-old/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { ReceiptText } from "lucide-react";
-import { createPurchaseOrder } from "../../../../../../src-old/app/dashboard/server-actions/purchase-order-actions";
+import { createPurchaseOrder } from "@/app/dashboard/server-actions/purchase-order-actions";
 import { toast } from "sonner";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";

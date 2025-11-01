@@ -1,4 +1,4 @@
-import prisma from "../../../../../../src-old/lib/prisma"
+import prisma from "@/lib/prisma"
 import { notFound } from "next/navigation"
 import CustomerForm from "../../components/customer-form"
 import { getCustomerUnique } from "@/lib/db/customers"

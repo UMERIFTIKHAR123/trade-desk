@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Button } from "../../../../../src-old/components/ui/button"
-import { Input } from "../../../../../src-old/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import {
   Form,
   FormControl,
@@ -13,12 +13,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../../../../src-old/components/ui/form"
+} from "@/components/ui/form"
 import { toast } from "sonner"
 import { Loader } from "lucide-react"
 import { Vendor } from "@prisma/client"
 import { createVendor, updateVendor } from "../../server-actions/vendor-actions"
-import { Card, CardContent } from "../../../../../src-old/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 
 const vendorSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),

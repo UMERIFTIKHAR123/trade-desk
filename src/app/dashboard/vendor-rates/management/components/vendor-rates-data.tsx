@@ -1,4 +1,4 @@
-import prisma from "../../../../../../src-old/lib/prisma";
+import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { VendorInfoCard } from "./vendor-info-card";
 import { ProductRatesTable } from "./product-rates-table";

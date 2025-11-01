@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { UseFormReturn } from "react-hook-form";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../../src-old/components/ui/card";
-import { Button } from "../../../../../src-old/components/ui/button";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../../../../../src-old/components/ui/form";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../../../../../src-old/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "../../../../../src-old/components/ui/popover";
-import { Avatar, AvatarFallback } from "../../../../../src-old/components/ui/avatar";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { User, Check, ChevronsUpDown, Lock } from "lucide-react";
-import { cn } from "../../../../../src-old/lib/utils";
+import { cn } from "@/lib/utils";
 import { Customer } from "@prisma/client";
 
 interface CustomerSelectorProps {

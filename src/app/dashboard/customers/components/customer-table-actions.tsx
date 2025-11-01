@@ -1,9 +1,9 @@
 "use client"
 
 
-import { deleteCustomer } from "../../../../../src-old/app/dashboard/server-actions/customer-actions"
+import { deleteCustomer } from "@/app/dashboard/server-actions/customer-actions"
 import Link from "next/link"
-import { Button } from "../../../../../src-old/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
 
 export function TableActions({ customer }: { customer: any }) {

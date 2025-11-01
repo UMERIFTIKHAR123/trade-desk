@@ -1,4 +1,4 @@
-import { Button } from "../../../../../src-old/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Package, Link, Plus } from "lucide-react";
 import { GridView } from "./grid-view";
 import { TableView } from "./table-view";

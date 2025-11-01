@@ -4,14 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../../src-old/components/ui/card";
-import { Button } from "../../../../../src-old/components/ui/button";
-import { Input } from "../../../../../src-old/components/ui/input";
-import { Textarea } from "../../../../../src-old/components/ui/textarea";
-import { Label } from "../../../../../src-old/components/ui/label";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../../../../../src-old/components/ui/form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../../../src-old/components/ui/select";
-import { Alert, AlertDescription } from "../../../../../src-old/components/ui/alert";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   Save,
   X,

@@ -1,8 +1,8 @@
 "use client";
 
 import { UseFormReturn, useFieldArray } from "react-hook-form";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../../src-old/components/ui/card";
-import { Button } from "../../../../../src-old/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Package, Plus } from "lucide-react";
 import { OrderItemRow } from "./order-item-row";
 import { Category, Product } from "@prisma/client";

@@ -1,15 +1,15 @@
-import prisma from "../../../../src-old/lib/prisma"
-import { Button } from "../../../../src-old/components/ui/button"
+import prisma from "@/lib/prisma"
+import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Suspense } from "react"
 import { Box, LayoutGrid, Package, Plus, TableIcon } from "lucide-react"
-import { Skeleton } from "../../../../src-old/components/ui/skeleton"
-import { ToggleGroup, ToggleGroupItem } from "../../../../src-old/components/ui/toggle-group"
+import { Skeleton } from "@/components/ui/skeleton"
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { TableSkeleton } from "./components/table-view"
 import { ProductCardSkeleton } from "./components/grid-view"
 import { SearchAndFilters } from "./components/search-and-filters"
 import { ProductsList } from "./components/products-list"
-import { Card, CardContent, CardFooter } from "../../../../src-old/components/ui/card"
+import { Card, CardContent, CardFooter } from "@/components/ui/card"
 
 
 

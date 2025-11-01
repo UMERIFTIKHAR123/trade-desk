@@ -1,16 +1,16 @@
 'use client'
-import { Badge } from "../../../../../../src-old/components/ui/badge";
-import { Card, CardContent } from "../../../../../../src-old/components/ui/card";
-import { DataTable } from "../../../../../../src-old/components/ui/data-table";
-import { formatCurrency, formatDate } from "../../../../../../src-old/lib/utils";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { DataTable } from "@/components/ui/data-table";
+import { formatCurrency, formatDate } from "@/lib/utils";
 import { Category, Product, Vendor, VendorProductRate } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { Package, TrendingUp } from "lucide-react";
 import Image from "next/image";
 import { DeleteRateDialog } from "./delete-rate-dialog";
 import { EditRateDialog } from "./edit-rate-dialog";
-import { Field, FieldDescription, FieldLabel } from "../../../../../../src-old/components/ui/field";
-import { Input } from "../../../../../../src-old/components/ui/input";
+import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
 

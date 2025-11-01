@@ -21,17 +21,17 @@ import {
   Users2,
 } from "lucide-react"
 
-import { NavMain } from "../../src-old/components/nav-main"
-import { NavProjects } from "../../src-old/components/nav-projects"
-import { NavUser } from "../../src-old/components/nav-user"
-import { TeamSwitcher } from "../../src-old/components/team-switcher"
+import { NavMain } from "@/components/nav-main"
+import { NavProjects } from "@/components/nav-projects"
+import { NavUser } from "@/components/nav-user"
+import { TeamSwitcher } from "@/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "../../src-old/components/ui/sidebar"
+} from "@/components/ui/sidebar"
 
 // This is sample data.
 const data = {

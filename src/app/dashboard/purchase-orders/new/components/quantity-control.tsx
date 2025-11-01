@@ -1,17 +1,17 @@
 // components/advanced-quantity-control.tsx
 'use client';
 
-import { Button } from '../../../../../../src-old/components/ui/button';
-import { Input } from '../../../../../../src-old/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { 
   Tooltip, 
   TooltipContent, 
   TooltipProvider, 
   TooltipTrigger 
-} from '../../../../../../src-old/components/ui/tooltip';
+} from '@/components/ui/tooltip';
 import { Minus, Plus, Trash2, AlertCircle } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { cn } from '../../../../../../src-old/lib/utils';
+import { cn } from '@/lib/utils';
 
 interface QuantityControlProps {
   quantity: number;

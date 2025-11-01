@@ -1,22 +1,22 @@
 'use client';
-import { Alert, AlertDescription } from "../../../../../../../src-old/components/ui/alert";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertTriangle, Calculator, ReceiptText, ShoppingCart } from "lucide-react";
 import { Category, Customer, Product, PurchaseOrder, PurchaseOrderItem } from "@prisma/client";
 import { PurchaseOrderFormData, usePurchaseOrderForm } from "../../../hooks/use-purchase-order-form";
 
 import { useEffect, useState, useTransition } from "react";
-import { Form } from "../../../../../../../src-old/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { CustomerSelector } from "../../../components/customer-selector";
 import { OrderSummaryCard } from "../../../components/order-summary-card";
 import { OrderItemList } from "../../../components/order-item-list";
-import { Button } from "../../../../../../../src-old/components/ui/button";
-import { updatePurchaseOrder } from "../../../../../../../src-old/app/dashboard/server-actions/purchase-order-actions";
+import { Button } from "@/components/ui/button";
+import { updatePurchaseOrder } from "@/app/dashboard/server-actions/purchase-order-actions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "../../../../../../../src-old/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { usePurchaseOrder } from "../../../context/purchase-order-context";
 import { useWatch } from "react-hook-form";
-import { formatCurrency } from "../../../../../../../src-old/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 
 
 interface IProps {

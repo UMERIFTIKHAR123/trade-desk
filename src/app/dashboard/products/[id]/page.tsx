@@ -1,14 +1,14 @@
 // app/products/[id]/page.tsx
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { Badge } from '../../../../../src-old/components/ui/badge';
-import { Button } from '../../../../../src-old/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../../../../../src-old/components/ui/card';
-import { Separator } from '../../../../../src-old/components/ui/separator';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 import { Pencil, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { getProductUnique } from '@/lib/db/products';
-import { formatCurrency, formatDate } from '../../../../../src-old/lib/utils';
+import { formatCurrency, formatDate } from '@/lib/utils';
 
 
 

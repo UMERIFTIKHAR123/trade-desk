@@ -1,7 +1,7 @@
-import { Button } from "../../../../src-old/components/ui/button"
+import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Plus, Users } from "lucide-react"
-import { DataTable } from "../../../../src-old/components/ui/data-table"
+import { DataTable } from "@/components/ui/data-table"
 import { columns } from "./components/customers-list"
 import { getCustomers } from "@/lib/db/customers"
 

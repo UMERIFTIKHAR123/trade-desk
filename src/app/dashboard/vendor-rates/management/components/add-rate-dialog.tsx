@@ -11,10 +11,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../../../../../src-old/components/ui/dialog";
-import { Button } from "../../../../../../src-old/components/ui/button";
-import { Input } from "../../../../../../src-old/components/ui/input";
-import { Label } from "../../../../../../src-old/components/ui/label";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Command,
   CommandEmpty,
@@ -22,17 +22,17 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "../../../../../../src-old/components/ui/command";
+} from "@/components/ui/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../../../../../../src-old/components/ui/popover";
-import { Badge } from "../../../../../../src-old/components/ui/badge";
+} from "@/components/ui/popover";
+import { Badge } from "@/components/ui/badge";
 import { Plus, Check, ChevronsUpDown, Package, Loader2 } from "lucide-react";
-import { cn } from "../../../../../../src-old/lib/utils";
+import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { addUpdateVendorProductRate } from "../../../../../../src-old/app/dashboard/server-actions/vendor-product-rate-actions";
+import { addUpdateVendorProductRate } from "@/app/dashboard/server-actions/vendor-product-rate-actions";
 
 interface Product {
   id: string;

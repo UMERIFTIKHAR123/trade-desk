@@ -1,4 +1,4 @@
-import { Button } from "../../../../../src-old/components/ui/button";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { getCustomers } from "@/lib/db/customers";
 import { getProducts } from "@/lib/db/products";

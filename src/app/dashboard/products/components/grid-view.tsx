@@ -1,5 +1,5 @@
-import { Button } from "../../../../../src-old/components/ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../../../../../src-old/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Package, Edit } from "lucide-react";
 import { DeleteProductButton } from "./delete-product-btn";
 import Image from "next/image";
@@ -59,8 +59,8 @@ export function GridView({ products }: { products: (Product & { category: Catego
   );
 }
 
-import { Skeleton } from "../../../../../src-old/components/ui/skeleton";
-import { Badge } from "../../../../../src-old/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Badge } from "@/components/ui/badge";
 
 export function ProductCardSkeleton() {
   return (

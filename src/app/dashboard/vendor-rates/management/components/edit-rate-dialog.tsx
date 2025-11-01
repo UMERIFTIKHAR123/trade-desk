@@ -11,16 +11,16 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../../../../../src-old/components/ui/dialog";
-import { Button } from "../../../../../../src-old/components/ui/button";
-import { Input } from "../../../../../../src-old/components/ui/input";
-import { Label } from "../../../../../../src-old/components/ui/label";
-import { Badge } from "../../../../../../src-old/components/ui/badge";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
 import { Pencil, Package, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { addUpdateVendorProductRate } from "../../../../../../src-old/app/dashboard/server-actions/vendor-product-rate-actions";
+import { addUpdateVendorProductRate } from "@/app/dashboard/server-actions/vendor-product-rate-actions";
 import { Category, Product, VendorProductRate } from "@prisma/client";
-import { formatCurrency } from "../../../../../../src-old/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 
 
 interface Props {

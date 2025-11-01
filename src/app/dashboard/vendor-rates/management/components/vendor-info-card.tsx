@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../../../src-old/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign, Mail, Package, Phone, Store } from "lucide-react";
 
 export function VendorInfoCard({ vendor }: { vendor: any }) {

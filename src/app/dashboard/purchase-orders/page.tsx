@@ -1,12 +1,12 @@
-import prisma from "../../../../src-old/lib/prisma";
+import prisma from "@/lib/prisma";
 
 import Link from "next/link";
-import { Button } from "../../../../src-old/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Plus, ReceiptText } from "lucide-react";
 import { columns } from "./components/purchase-orders/columns";
 import { SearchAndFilters } from "./components/purchase-orders/search-and-filters";
-import { Card, CardContent } from "../../../../src-old/components/ui/card";
-import { DataTable } from "../../../../src-old/components/ui/data-table";
+import { Card, CardContent } from "@/components/ui/card";
+import { DataTable } from "@/components/ui/data-table";
 import { getPurchaseOrders } from "@/lib/db/purchase-orders";
 
 

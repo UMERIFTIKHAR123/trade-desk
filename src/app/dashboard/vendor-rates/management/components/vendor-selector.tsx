@@ -1,6 +1,6 @@
 'use client'
-import { Badge } from "../../../../../../src-old/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../../../../src-old/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Vendor } from "@prisma/client";
 
 export function VendorSelector({

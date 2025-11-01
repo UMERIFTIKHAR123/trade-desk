@@ -1,7 +1,7 @@
 'use server';
 
-import { ServerActionResponse } from '../../../../src-old/app/types/server-action-response';
-import prisma from '../../../../src-old/lib/prisma';
+import { ServerActionResponse } from '@/app/types/server-action-response';
+import prisma from '@/lib/prisma';
 import { Category } from '@prisma/client';
 import { revalidatePath, revalidateTag } from 'next/cache';
 

@@ -6,10 +6,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../../../../src-old/components/ui/table"
+} from "@/components/ui/table"
 
 import { TableActions } from "./components/table-actions";
-import { Button } from "../../../../src-old/components/ui/button";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Boxes, Plus } from "lucide-react";
 import { getCategories } from "@/lib/db/categories";

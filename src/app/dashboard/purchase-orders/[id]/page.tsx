@@ -1,17 +1,17 @@
-import prisma from "../../../../../src-old/lib/prisma";
+import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import { Button } from "../../../../../src-old/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { CalendarDays, Mail, Package, Phone, Receipt, SquarePen, User } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../../src-old/components/ui/card";
-import { Avatar, AvatarFallback } from "../../../../../src-old/components/ui/avatar";
-import { Separator } from "../../../../../src-old/components/ui/separator";
-import { Badge } from "../../../../../src-old/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../../../../src-old/components/ui/table";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { PurchaseOrderItem } from "@prisma/client";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { getPurchaseOrderUnique } from "@/lib/db/purchase-orders";
-import { formatCurrency, formatDate, formatPurchaseOrderNo } from "../../../../../src-old/lib/utils";
+import { formatCurrency, formatDate, formatPurchaseOrderNo } from "@/lib/utils";
 
 interface Props {
   params: Promise<{ id: string }>

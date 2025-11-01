@@ -3,7 +3,7 @@
 import * as React from "react"
 import { ReceiptText, ShoppingCart, X, Trash2, Package } from "lucide-react"
 
-import { Button } from "../../../../../../src-old/components/ui/button"
+import { Button } from "@/components/ui/button"
 import {
   Drawer,
   DrawerClose,
@@ -14,10 +14,10 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
-import { Badge } from "../../../../../../src-old/components/ui/badge"
-import { Separator } from "../../../../../../src-old/components/ui/separator"
+import { Badge } from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
 import Image from "next/image"
-import { formatCurrency } from "../../../../../../src-old/lib/utils"
+import { formatCurrency } from "@/lib/utils"
 import { QuantityControl } from "./quantity-control"
 import { usePurchaseOrder } from "../../context/purchase-order-context"
 

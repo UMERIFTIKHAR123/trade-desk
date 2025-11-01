@@ -1,8 +1,8 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "../../../../../src-old/components/ui/card";
-import { Separator } from "../../../../../src-old/components/ui/separator";
-import { formatCurrency } from "../../../../../src-old/lib/utils";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { formatCurrency } from "@/lib/utils";
 import { PurchaseOrderItem } from "@prisma/client";
 import { Calculator } from "lucide-react";
 

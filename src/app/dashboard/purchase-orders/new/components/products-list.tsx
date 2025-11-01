@@ -1,11 +1,11 @@
 'use client'
-import { Button } from "../../../../../../src-old/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { ProductCard } from "./product-card";
 import { Category, Product } from "@prisma/client";
 import { useEffect, useState } from "react";
-import { cn } from "../../../../../../src-old/lib/utils";
+import { cn } from "@/lib/utils";
 import { Check, Package } from "lucide-react";
-import { Input } from "../../../../../../src-old/components/ui/input";
+import { Input } from "@/components/ui/input";
 
 interface Props {
   products: (Product & { category: Category })[];

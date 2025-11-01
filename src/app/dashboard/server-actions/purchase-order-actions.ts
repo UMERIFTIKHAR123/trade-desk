@@ -1,8 +1,8 @@
 'use server';
 
 import { PurchaseOrder, PurchaseOrderItem } from "@prisma/client";
-import prisma from "../../../../src-old/lib/prisma";
-import { ServerActionResponse } from "../../../../src-old/app/types/server-action-response";
+import prisma from "@/lib/prisma";
+import { ServerActionResponse } from "@/app/types/server-action-response";
 import { revalidateTag } from "next/cache";
 
 type CreatePurchaseOrder = { customerId: string; items: Omit<PurchaseOrderItem, 'id' | 'purchaseOrderId' | 'createdAt' | 'updatedAt'>[] }

@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Button } from "../../../../../src-old/components/ui/button"
-import { Input } from "../../../../../src-old/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import {
   Form,
   FormControl,
@@ -13,8 +13,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../../../../src-old/components/ui/form"
-import { createCustomer, updateCustomer } from "../../../../../src-old/app/dashboard/server-actions/customer-actions"
+} from "@/components/ui/form"
+import { createCustomer, updateCustomer } from "@/app/dashboard/server-actions/customer-actions"
 import { toast } from "sonner"
 import { Loader } from "lucide-react"
 import { Customer } from "@prisma/client"

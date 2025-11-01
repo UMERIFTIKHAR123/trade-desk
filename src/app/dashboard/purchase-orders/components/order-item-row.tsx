@@ -1,16 +1,16 @@
 "use client";
 
 import { UseFormReturn, useWatch } from "react-hook-form";
-import { Button } from "../../../../../src-old/components/ui/button";
-import { Input } from "../../../../../src-old/components/ui/input";
-import { Badge } from "../../../../../src-old/components/ui/badge";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../../../../../src-old/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Plus, Minus, Trash2 } from "lucide-react";
 import { ProductPicker } from "./product-picker";
 import { Category, Product } from "@prisma/client";
 import { useMemo } from "react";
 import { PurchaseOrderFormData } from "../hooks/use-purchase-order-form";
-import { formatCurrency } from "../../../../../src-old/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 import Image from "next/image";
 
 

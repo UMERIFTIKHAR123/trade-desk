@@ -1,9 +1,9 @@
-import { DataTable } from "../../../../src-old/components/ui/data-table";
+import { DataTable } from "@/components/ui/data-table";
 import { columns } from "./components/vendor-rates-table-cols";
-import { Button } from "../../../../src-old/components/ui/button";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { HandCoins, Plus } from "lucide-react";
-import { Card, CardContent } from "../../../../src-old/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { SearchAndFilters } from "./components/search-filters";
 import { getVendorProductsRates } from "@/lib/db/vendors-products-rates";
 

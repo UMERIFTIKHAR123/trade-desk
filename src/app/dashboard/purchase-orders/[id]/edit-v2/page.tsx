@@ -1,5 +1,5 @@
-import { Button } from "../../../../../../src-old/components/ui/button";
-import prisma from "../../../../../../src-old/lib/prisma";
+import { Button } from "@/components/ui/button";
+import prisma from "@/lib/prisma";
 import dayjs from "dayjs";
 import { ArrowLeft, History } from "lucide-react";
 import { notFound } from "next/navigation";
@@ -9,7 +9,7 @@ import { getCustomers } from "@/lib/db/customers";
 import { getProducts } from "@/lib/db/products";
 import { getPurchaseOrderUnique } from "@/lib/db/purchase-orders";
 import { ActiveStep, PurchaseOrderProvider } from "../../context/purchase-order-context";
-import { formatPurchaseOrderNo } from "../../../../../../src-old/lib/utils";
+import { formatPurchaseOrderNo } from "@/lib/utils";
 import { POCartDrawer } from "../../new/components/po-cart-drawer";
 import { ProductsList } from "../../new/components/products-list";
 import { getCategories } from "@/lib/db/categories";

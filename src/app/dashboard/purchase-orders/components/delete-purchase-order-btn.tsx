@@ -1,11 +1,11 @@
 
 'use client';
 
-import { Button } from "../../../../../src-old/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { deletePurchaseOrder } from "../../server-actions/purchase-order-actions";
 import { toast } from "sonner";
 import { Trash2 } from "lucide-react";
-import { WarnAlertDialog } from "../../../../../src-old/components/warn-alert-dialog";
+import { WarnAlertDialog } from "@/components/warn-alert-dialog";
 
 export function DeletePurchaseOrderButton({ id }: { id: string }) {
 

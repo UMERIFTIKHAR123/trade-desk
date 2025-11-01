@@ -1,7 +1,7 @@
 "use client"
 import * as React from "react"
-import { Button } from "../../../../src-old/components/ui/button";
-import { Input } from "../../../../src-old/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormField,
@@ -9,7 +9,7 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
-} from "../../../../src-old/components/ui/form";
+} from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";

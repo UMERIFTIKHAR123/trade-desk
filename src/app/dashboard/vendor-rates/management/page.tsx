@@ -1,5 +1,5 @@
-import { Skeleton } from "../../../../../src-old/components/ui/skeleton";
-import prisma from "../../../../../src-old/lib/prisma";
+import { Skeleton } from "@/components/ui/skeleton";
+import prisma from "@/lib/prisma";
 import { Suspense } from "react";
 import { VendorSelector } from "./components/vendor-selector";
 import { EmptyState } from "./components/empty-state";

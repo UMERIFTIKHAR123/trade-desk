@@ -1,10 +1,10 @@
-import { AppSidebar } from "../../../src-old/components/app-sidebar"
-import { Separator } from "../../../src-old/components/ui/separator"
+import { AppSidebar } from "@/components/app-sidebar"
+import { Separator } from "@/components/ui/separator"
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "../../../src-old/components/ui/sidebar"
+} from "@/components/ui/sidebar"
 import { Avatar } from "@radix-ui/react-avatar"
 
 export default function DashboardLayout({

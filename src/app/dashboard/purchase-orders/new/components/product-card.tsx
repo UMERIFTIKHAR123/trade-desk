@@ -1,8 +1,8 @@
 'use client'
 
-import { Badge } from "../../../../../../src-old/components/ui/badge";
-import { Button } from "../../../../../../src-old/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../../../../../src-old/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Category, Product } from "@prisma/client"
 import { Package, ShoppingCart } from "lucide-react";
 import Image from "next/image";
