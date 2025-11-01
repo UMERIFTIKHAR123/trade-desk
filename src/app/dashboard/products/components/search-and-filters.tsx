@@ -1,9 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import prisma from "@/lib/prisma";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { Button } from "../../../../../src-old/components/ui/button";
+import { Input } from "../../../../../src-old/components/ui/input";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../../src-old/components/ui/select";
 import { Search } from "lucide-react";
-import { getCategories } from "@/lib/get-categories";
+import { getCategories } from "@/lib/db/categories";
 
 export function SearchAndFilters({
   search,

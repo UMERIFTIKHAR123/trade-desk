@@ -1,8 +1,8 @@
 "use client"
 
-import { deleteProduct } from "@/app/dashboard/server-actions/product-actions"
+import { deleteProduct } from "../../../../../src-old/app/dashboard/server-actions/product-actions"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../../../../src-old/components/ui/button"
 import { toast } from "sonner"
 
 export function TableActions({ product }: { product: any }) {

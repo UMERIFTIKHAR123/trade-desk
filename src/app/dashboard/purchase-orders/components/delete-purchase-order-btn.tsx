@@ -1,11 +1,11 @@
 
 'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from "../../../../../src-old/components/ui/button";
 import { deletePurchaseOrder } from "../../server-actions/purchase-order-actions";
 import { toast } from "sonner";
 import { Trash2 } from "lucide-react";
-import { WarnAlertDialog } from "@/components/warn-alert-dialog";
+import { WarnAlertDialog } from "../../../../../src-old/components/warn-alert-dialog";
 
 export function DeletePurchaseOrderButton({ id }: { id: string }) {
 
@@ -22,8 +22,8 @@ export function DeletePurchaseOrderButton({ id }: { id: string }) {
   return (
     <WarnAlertDialog
       triggerElement={
-        <Button variant="destructive" size="sm">
-          <Trash2 />
+        <Button variant="outline" size="sm">
+          <Trash2 className="text-red-500" />
         </Button>
       }
       title="Delete Purchase Order"

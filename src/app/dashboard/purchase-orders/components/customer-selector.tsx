@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { UseFormReturn } from "react-hook-form";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../../src-old/components/ui/card";
+import { Button } from "../../../../../src-old/components/ui/button";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../../../../../src-old/components/ui/form";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../../../../../src-old/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "../../../../../src-old/components/ui/popover";
+import { Avatar, AvatarFallback } from "../../../../../src-old/components/ui/avatar";
 import { User, Check, ChevronsUpDown, Lock } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../../src-old/lib/utils";
 import { Customer } from "@prisma/client";
 
 interface CustomerSelectorProps {
@@ -105,11 +105,6 @@ export function CustomerSelector({
                         >
                           {selectedCustomer ? (
                             <div className="flex items-center gap-2">
-                              <Avatar className="h-6 w-6">
-                                <AvatarFallback className="text-xs">
-                                  {selectedCustomer.name.split(' ').map(n => n[0]).join('')}
-                                </AvatarFallback>
-                              </Avatar>
                               <span>{selectedCustomer.name}</span>
                             </div>
                           ) : (
@@ -134,16 +129,12 @@ export function CustomerSelector({
                                 key={customer.id}
                                 value={customer.id}
                                 onSelect={() => {
-                                  form.setValue(fieldName, customer.id);
+                                  form.setValue(fieldName, customer.id, { shouldValidate: true, shouldDirty: true });
                                   setCustomerOpen(false);
                                 }}
                               >
                                 <div className="flex items-center gap-2">
-                                  <Avatar className="h-8 w-8">
-                                    <AvatarFallback>
-                                      {customer.name.split(' ').map(n => n[0]).join('')}
-                                    </AvatarFallback>
-                                  </Avatar>
+
                                   <div>
                                     <p className="font-medium">{customer.name}</p>
                                     <p className="text-sm text-gray-600">{customer.email}</p>
@@ -170,11 +161,6 @@ export function CustomerSelector({
             {selectedCustomer && (
               <div className="mt-4 rounded-lg border bg-gray-50 p-4">
                 <div className="flex items-center gap-3">
-                  <Avatar>
-                    <AvatarFallback>
-                      {selectedCustomer.name.split(' ').map(n => n[0]).join('')}
-                    </AvatarFallback>
-                  </Avatar>
                   <div>
                     <p className="font-semibold">{selectedCustomer.name}</p>
                     <p className="text-sm text-gray-600">{selectedCustomer.email}</p>

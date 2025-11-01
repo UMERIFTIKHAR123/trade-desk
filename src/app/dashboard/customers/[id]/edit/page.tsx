@@ -1,6 +1,7 @@
-import prisma from "@/lib/prisma"
+import prisma from "../../../../../../src-old/lib/prisma"
 import { notFound } from "next/navigation"
 import CustomerForm from "../../components/customer-form"
+import { getCustomerUnique } from "@/lib/db/customers"
 
 interface Props {
   params: Promise<{ id: string }>
@@ -9,7 +10,7 @@ interface Props {
 export default async function EditCustomerPage({ params }: Props) {
   const customerId = (await params).id
 
-  const customer = await prisma.customer.findUnique({
+  const customer = await getCustomerUnique({
     where: { id: customerId },
   })
 

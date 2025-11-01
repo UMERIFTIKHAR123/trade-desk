@@ -2,24 +2,22 @@ import * as React from "react"
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "../../../../src-old/components/ui/table"
 
-import AddCategoryDialog from "./category-form"
-import prisma from "@/lib/prisma"
 import { TableActions } from "./components/table-actions";
-import { Button } from "@/components/ui/button";
+import { Button } from "../../../../src-old/components/ui/button";
 import Link from "next/link";
 import { Boxes, Plus } from "lucide-react";
-import { getCategories } from "@/lib/get-categories";
+import { getCategories } from "@/lib/db/categories";
+
 
 export default async function CategoryPage() {
 
-   const categories = await getCategories();
+  const categories = await getCategories();
 
   return (
     <div>
@@ -32,7 +30,7 @@ export default async function CategoryPage() {
           </p>
         </div>
         <div className="flex items-center gap-3">
-         
+
           <Button asChild size="lg">
             <Link href="/dashboard/categories/new">
               <Plus className="h-5 w-5 mr-2" />

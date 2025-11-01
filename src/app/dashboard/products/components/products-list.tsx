@@ -1,22 +1,9 @@
-import { Button } from "@/components/ui/button";
-import prisma from "@/lib/prisma";
+import { Button } from "../../../../../src-old/components/ui/button";
 import { Package, Link, Plus } from "lucide-react";
 import { GridView } from "./grid-view";
 import { TableView } from "./table-view";
+import { getProducts } from "@/lib/db/products";
 
-async function getProducts(search?: string, categoryId?: string) {
-  return await prisma.product.findMany({
-    where: {
-      isDeleted: false,
-      ...(search && {
-        name: { contains: search, mode: "insensitive" }
-      }),
-      ...(categoryId && categoryId !== "all" && { categoryId })
-    },
-    include: { category: true },
-    orderBy: { createdAt: "desc" }
-  })
-}
 
 export async function ProductsList({
   view,
@@ -27,7 +14,18 @@ export async function ProductsList({
   search: string;
   categoryId: string;
 }) {
-  const products = await getProducts(search, categoryId);
+
+  const products = await getProducts({
+    where: {
+      isDeleted: false,
+      ...(search && {
+        name: { contains: search, mode: "insensitive" }
+      }),
+      ...(categoryId && categoryId !== "all" && { categoryId })
+    },
+    include: { category: true },
+    orderBy: { createdAt: "desc" }
+  })
 
   if (products.length === 0) {
     return (
@@ -39,12 +37,6 @@ export async function ProductsList({
         <p className="text-muted-foreground mb-6 max-w-md">
           Get started by creating your first product. Add details, images, and pricing to showcase your inventory.
         </p>
-        <Button asChild>
-          <Link href="/dashboard/products/new">
-            <Plus className="h-4 w-4 mr-2" />
-            Create Product
-          </Link>
-        </Button>
       </div>
     );
   }

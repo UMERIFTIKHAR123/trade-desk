@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "../../../../../src-old/components/ui/button"
+import { Input } from "../../../../../src-old/components/ui/input"
 import {
   Form,
   FormControl,
@@ -13,16 +13,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
+} from "../../../../../src-old/components/ui/form"
 import { toast } from "sonner"
 import { Loader } from "lucide-react"
 import { Vendor } from "@prisma/client"
 import { createVendor, updateVendor } from "../../server-actions/vendor-actions"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "../../../../../src-old/components/ui/card"
 
 const vendorSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
+  email: z.email("Invalid email address").optional().or(z.literal('')),
   phone: z.string().optional(),
 })
 
@@ -47,13 +47,19 @@ export default function CustomerForm({ vendor }: Props) {
   async function onSubmit(values: VendorFormValues) {
     try {
 
+       const data = {
+        ...values,
+        email: values.email ?? null,
+        phone: values.phone ?? null
+      }
+
       let response;
 
       if (vendor) {
-        response = await updateVendor({ ...values, id: vendor.id, phone: values.phone ?? null })
+        response = await updateVendor({ ...data, id: vendor.id, })
 
       } else {
-        response = await createVendor({ ...values, phone: values.phone ?? null })
+        response = await createVendor(data)
 
       }
 

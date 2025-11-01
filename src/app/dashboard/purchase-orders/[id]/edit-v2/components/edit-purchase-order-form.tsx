@@ -1,19 +1,22 @@
 'use client';
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertTriangle, Calculator, ShoppingCart } from "lucide-react";
+import { Alert, AlertDescription } from "../../../../../../../src-old/components/ui/alert";
+import { AlertTriangle, Calculator, ReceiptText, ShoppingCart } from "lucide-react";
 import { Category, Customer, Product, PurchaseOrder, PurchaseOrderItem } from "@prisma/client";
 import { PurchaseOrderFormData, usePurchaseOrderForm } from "../../../hooks/use-purchase-order-form";
-import { useOrderCalculations } from "../../../hooks/use-order-calculation";
+
 import { useEffect, useState, useTransition } from "react";
-import { Form } from "@/components/ui/form";
+import { Form } from "../../../../../../../src-old/components/ui/form";
 import { CustomerSelector } from "../../../components/customer-selector";
 import { OrderSummaryCard } from "../../../components/order-summary-card";
 import { OrderItemList } from "../../../components/order-item-list";
-import { Button } from "@/components/ui/button";
-import { updatePurchaseOrder } from "@/app/dashboard/server-actions/purchase-order-actions";
+import { Button } from "../../../../../../../src-old/components/ui/button";
+import { updatePurchaseOrder } from "../../../../../../../src-old/app/dashboard/server-actions/purchase-order-actions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "../../../../../../../src-old/components/ui/alert-dialog";
+import { usePurchaseOrder } from "../../../context/purchase-order-context";
+import { useWatch } from "react-hook-form";
+import { formatCurrency } from "../../../../../../../src-old/lib/utils";
 
 
 interface IProps {
@@ -33,7 +36,19 @@ export const EditPurchaseOrderForm = ({ purchaseOrder, products, customers }: IP
 
   const savePurchaseOrder = (data: PurchaseOrderFormData) =>
     startSavingPO(async () => {
-      const response = await updatePurchaseOrder(data.id!, data);
+
+      const payload = {
+        customerId: data.customerId,
+        items: data.items.map(({ productId, quantity, price, dto, iva }) => ({
+          productId,
+          quantity,
+          price,
+          dto,
+          iva
+        }))
+      }
+
+      const response = await updatePurchaseOrder(data.id!, payload);
       if (response.success) {
         toast.success(response.message);
         router.push(`/dashboard/purchase-orders/${response.data?.id}`)
@@ -42,30 +57,25 @@ export const EditPurchaseOrderForm = ({ purchaseOrder, products, customers }: IP
       }
     })
 
-  const { form, handleSubmit } = usePurchaseOrderForm({
-    defaultValues: {
-      id: purchaseOrder.id,
-      customerId: purchaseOrder.customerId,
-      items: purchaseOrder.items
-    },
-    onSubmit: async (data) => savePurchaseOrder(data)
-  })
 
-  const { handleProductSelect, handleQuantityChange, handleDiscountChange, } = useOrderCalculations(products);
+  const { form } = usePurchaseOrder();
+
+
+  const watchedItems = useWatch({ control: form.control, name: 'items' })
+  const values = useWatch();
 
   useEffect(() => {
-    const subscription = form.watch(() => {
-      if (form.formState.isDirty) {
-        setHasUnsavedChanges(true);
-      }
-    });
-    return () => subscription.unsubscribe();
-  }, [form]);
+    if (form.formState.isDirty) {
+      setHasUnsavedChanges(true);
+      console.log("changed subscripti....")
+    }
+  }, [values]);
 
-  const watchedItems = form.watch("items") || [];
+
+  console.log("is form dirty: ", form.formState.isDirty, values)
 
   const calculateOrderTotals = () => {
-    const subtotal = watchedItems.reduce((sum, item) => sum + (item.quantity * item.unitPrice), 0);
+    const subtotal = watchedItems.reduce((sum, item) => sum + (item.quantity * item.price), 0);
     const totalDiscount = watchedItems.reduce((sum, item) => sum + item.dto, 0);
     const totalTax = watchedItems.reduce((sum, item) => sum + item.iva, 0);
     const total = subtotal - totalDiscount + totalTax;
@@ -73,12 +83,7 @@ export const EditPurchaseOrderForm = ({ purchaseOrder, products, customers }: IP
     return { subtotal, totalDiscount, totalTax, total };
   };
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('es-ES', {
-      style: 'currency',
-      currency: 'EUR',
-    }).format(amount);
-  };
+
 
   const handleDiscardChanges = () => {
     form.reset();
@@ -114,7 +119,7 @@ export const EditPurchaseOrderForm = ({ purchaseOrder, products, customers }: IP
       )}
 
       <Form {...form}>
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={form.handleSubmit(savePurchaseOrder)} className="space-y-6">
           <div className="grid gap-6 md:grid-cols-3">
             <div className="md:col-span-2">
               <CustomerSelector customers={customers} form={form} isLocked={isCustomerLocked} onLockToggle={() => setIsCustomerLocked(!isCustomerLocked)} />
@@ -127,9 +132,6 @@ export const EditPurchaseOrderForm = ({ purchaseOrder, products, customers }: IP
           <OrderItemList
             form={form}
             products={products}
-            onProductSelect={(productId, index) => handleProductSelect(productId, index, form.setValue, form.getValues)}
-            onQuantityChange={(index, quantity) => handleQuantityChange(index, quantity, form.setValue, form.getValues)}
-            onDiscountChange={(index, discount) => handleDiscountChange(index, discount, form.setValue, form.getValues)}
           />
 
           {/* Submit Button */}
@@ -156,7 +158,7 @@ export const EditPurchaseOrderForm = ({ purchaseOrder, products, customers }: IP
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
-                  <ShoppingCart className="h-4 w-4" />
+                  <ReceiptText className="h-4 w-4" />
                   Save Changes
                 </div>
               )}

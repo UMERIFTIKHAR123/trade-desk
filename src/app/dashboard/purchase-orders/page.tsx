@@ -1,12 +1,13 @@
-import prisma from "@/lib/prisma";
+import prisma from "../../../../src-old/lib/prisma";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Button } from "../../../../src-old/components/ui/button";
 import { Plus, ReceiptText } from "lucide-react";
 import { columns } from "./components/purchase-orders/columns";
 import { SearchAndFilters } from "./components/purchase-orders/search-and-filters";
-import { Card, CardContent } from "@/components/ui/card";
-import { DataTable } from "@/components/ui/data-table";
+import { Card, CardContent } from "../../../../src-old/components/ui/card";
+import { DataTable } from "../../../../src-old/components/ui/data-table";
+import { getPurchaseOrders } from "@/lib/db/purchase-orders";
 
 
 interface Props {
@@ -21,7 +22,7 @@ export default async function PurchaseOrders({ searchParams }: Props) {
 
   const searchPurchaseOrderNo = searchPO.replace(/\D/g, ""); // remove non-digits
 
-  const purchaseOrders = await prisma.purchaseOrder.findMany({
+  const purchaseOrders = await getPurchaseOrders({
     where: {
       orderNo: searchPurchaseOrderNo ? parseInt(searchPurchaseOrderNo) : undefined,
       ...(customerId && customerId !== "all" && { customerId })
@@ -47,9 +48,9 @@ export default async function PurchaseOrders({ searchParams }: Props) {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <Button asChild size="lg">
-            <Link href="/dashboard/purchase-orders/create-v3">
-              <Plus className="h-5 w-5 mr-2" />
+          <Button asChild  >
+            <Link href="/dashboard/purchase-orders/new">
+              <Plus />
               New Purchase Order
             </Link>
           </Button>

@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Button } from "../../../../../src-old/components/ui/button";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../../../../../src-old/components/ui/card";
 import { Package, Edit } from "lucide-react";
 import { DeleteProductButton } from "./delete-product-btn";
 import Image from "next/image";
@@ -30,7 +30,9 @@ export function GridView({ products }: { products: (Product & { category: Catego
           </div>
 
           <CardHeader className="pb-3">
-            <CardTitle className="line-clamp-1 text-lg">{product.name}</CardTitle>
+            <CardTitle className="line-clamp-1 text-lg hover:underline">
+              <Link href={`/dashboard/products/${product.id}`}>{product.name}</Link>
+            </CardTitle>
             <CardDescription className="text-xl font-bold text-primary">
               €{product.price.toFixed(2)}
             </CardDescription>
@@ -57,8 +59,8 @@ export function GridView({ products }: { products: (Product & { category: Catego
   );
 }
 
-import { Skeleton } from "@/components/ui/skeleton";
-import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "../../../../../src-old/components/ui/skeleton";
+import { Badge } from "../../../../../src-old/components/ui/badge";
 
 export function ProductCardSkeleton() {
   return (

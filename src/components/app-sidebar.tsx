@@ -21,17 +21,17 @@ import {
   Users2,
 } from "lucide-react"
 
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+import { NavMain } from "../../src-old/components/nav-main"
+import { NavProjects } from "../../src-old/components/nav-projects"
+import { NavUser } from "../../src-old/components/nav-user"
+import { TeamSwitcher } from "../../src-old/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "../../src-old/components/ui/sidebar"
 
 // This is sample data.
 const data = {
@@ -61,7 +61,7 @@ const data = {
     {
       title: "Product's Categories",
       url: '/dashboard/categories',
-      icon: Boxes
+      icon: Boxes,
     },
     {
       title: "Products",
@@ -74,23 +74,33 @@ const data = {
       icon: Users
     },
     {
+      title: "Purchase Orders",
+      url: "#",
+      icon: ReceiptText,
+      items: [
+        {
+          title: "New PO",
+          url: "/dashboard/purchase-orders/new",
+        },
+        {
+          title: "History",
+          url: "/dashboard/purchase-orders",
+        }
+      ]
+    },
+    {
       title: "Vendors",
       url: "/dashboard/vendors",
       icon: Store
-    },
-  ],
-  procurement: [
-
-    {
-      title: "Purchase Orders",
-      url: "/dashboard/purchase-orders",
-      icon: ReceiptText
     },
     {
       title: "Vendor Rates",
       url: "/dashboard/vendor-rates/management",
       icon: HandCoins
-    }
+    },
+  ],
+  procurement: [
+
     // {
     //   title: "Playground",
     //   url: "#",
@@ -125,16 +135,16 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar variant="inset" collapsible="icon" {...props}>
       <SidebarHeader>
         {/* <TeamSwitcher teams={data.teams} /> */}
         <div className="px-3 py-4 text-lg font-medium">The Trade Desk</div>
       </SidebarHeader>
       <SidebarContent>
 
-        <NavMain groupTitle="Master Data" items={data.masterData} />
+        <NavMain groupTitle="" items={data.masterData} />
 
-        <NavMain groupTitle="Procurement" items={data.procurement} />
+        {/* <NavMain groupTitle="Procurement" items={data.procurement} /> */}
 
         {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>

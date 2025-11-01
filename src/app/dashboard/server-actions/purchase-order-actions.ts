@@ -1,9 +1,9 @@
 'use server';
 
 import { PurchaseOrder, PurchaseOrderItem } from "@prisma/client";
-import prisma from "@/lib/prisma";
-import { ServerActionResponse } from "@/app/types/server-action-response";
-import { revalidatePath } from "next/cache";
+import prisma from "../../../../src-old/lib/prisma";
+import { ServerActionResponse } from "../../../../src-old/app/types/server-action-response";
+import { revalidateTag } from "next/cache";
 
 type CreatePurchaseOrder = { customerId: string; items: Omit<PurchaseOrderItem, 'id' | 'purchaseOrderId' | 'createdAt' | 'updatedAt'>[] }
 
@@ -11,7 +11,7 @@ export const createPurchaseOrder = async (data: CreatePurchaseOrder): Promise<Se
 
   const totalAmounts = data.items.reduce((acc, current) => {
 
-    const price = current.unitPrice;
+    const price = current.price;
     const units = current.quantity;
     const iva = current.iva / 100;
     const dto = current.dto / 100;
@@ -33,7 +33,8 @@ export const createPurchaseOrder = async (data: CreatePurchaseOrder): Promise<Se
       }
     });
 
-    revalidatePath('/dashboard/purchase-orders');
+    revalidateTag('purchaseOrderUnique');
+    revalidateTag('purchaseOrders');
 
     return {
       success: true,
@@ -43,10 +44,10 @@ export const createPurchaseOrder = async (data: CreatePurchaseOrder): Promise<Se
 
 
   } catch (error) {
+    console.error("Error while creating purchase order: ", error)
     return {
       success: false,
       message: 'Failed to create purchase order',
-      errors: { general: (error as Error).message },
     };
   }
 
@@ -56,7 +57,7 @@ export const updatePurchaseOrder = async (id: string, data: CreatePurchaseOrder)
 
   const totalAmounts = data.items.reduce((acc, current) => {
 
-    const price = current.unitPrice;
+    const price = current.price;
     const units = current.quantity;
     const iva = current.iva / 100;
     const dto = current.dto / 100;
@@ -85,7 +86,8 @@ export const updatePurchaseOrder = async (id: string, data: CreatePurchaseOrder)
       }
     });
 
-    revalidatePath('/dashboard/purchase-orders');
+    revalidateTag('purchaseOrderUnique');
+    revalidateTag('purchaseOrders');
 
     return {
       success: true,
@@ -113,7 +115,8 @@ export const deletePurchaseOrder = async (id: string): Promise<ServerActionRespo
       where: { id }
     });
 
-    revalidatePath('/dashboard/purchase-orders');
+    revalidateTag('purchaseOrderUnique');
+    revalidateTag('purchaseOrders');
 
     return {
       success: true,

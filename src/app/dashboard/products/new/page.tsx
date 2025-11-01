@@ -1,8 +1,8 @@
 import Link from "next/dist/client/link"
-import prisma from "@/lib/prisma"
+import prisma from "../../../../../src-old/lib/prisma"
 import { ProductFormV2 } from "../components/product-form-v2";
 import { ArrowLeft } from "lucide-react";
-import { getCategories } from "@/lib/get-categories";
+import { getCategories } from "@/lib/db/categories";
 
 export default async function NewProductPage() {
 

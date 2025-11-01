@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from "@/components/ui/button"
+import { Button } from "../../../../../src-old/components/ui/button"
 import { deleteCategory } from "../../server-actions/category-actions"
 import { toast } from "sonner"
 import { Category } from "@prisma/client"

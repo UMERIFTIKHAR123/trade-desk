@@ -1,6 +1,6 @@
-import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import CategoryForm from "../../category-form";
+import { getCategoryUnique } from "@/lib/db/categories";
 
 interface Props {
   params: Promise<{ id: string }>
@@ -11,7 +11,7 @@ export default async function EditCategoryPage({ params }: Props) {
   const categoryId = (await params).id
 
 
-  const found = await prisma.category.findUnique({
+  const found = await getCategoryUnique({
     where: { id: categoryId }
   })
 

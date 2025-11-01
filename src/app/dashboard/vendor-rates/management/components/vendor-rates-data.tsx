@@ -1,8 +1,11 @@
-import prisma from "@/lib/prisma";
+import prisma from "../../../../../../src-old/lib/prisma";
 import { redirect } from "next/navigation";
 import { VendorInfoCard } from "./vendor-info-card";
 import { ProductRatesTable } from "./product-rates-table";
 import { AddRateDialog } from "./add-rate-dialog";
+import { getVendorUnique } from "@/lib/db/vendors";
+import { getVendorProductsRates } from "@/lib/db/vendors-products-rates";
+import { getProducts } from "@/lib/db/products";
 
 export async function VendorRatesData({ vendorId }: { vendorId: string }) {
   const vendor = await getVendorWithRates(vendorId);
@@ -35,7 +38,8 @@ export async function VendorRatesData({ vendorId }: { vendorId: string }) {
 }
 
 async function getVendorWithRates(vendorId: string) {
-  return await prisma.vendor.findUnique({
+
+  return await getVendorUnique({
     where: { id: vendorId },
     include: {
       VendorProductRate: {
@@ -54,14 +58,14 @@ async function getVendorWithRates(vendorId: string) {
 }
 
 async function getAvailableProducts(vendorId: string) {
-  const existingRates = await prisma.vendorProductRate.findMany({
+  const existingRates = await getVendorProductsRates({
     where: { vendorId },
     select: { productId: true },
   });
 
   const excludedIds = existingRates.map((r) => r.productId);
 
-  return await prisma.product.findMany({
+  return await getProducts({
     where: {
       id: { notIn: excludedIds },
       isDeleted: false,

@@ -8,7 +8,7 @@ const purchaseOrderItemSchema = z.object({
   id: z.string().optional(),
   productId: z.string().min(1, "Product is required"),
   quantity: z.number().min(1, "Quantity must be at least 1"),
-  unitPrice: z.number().min(0, "Unit price must be positive"),
+  price: z.number().min(0, "Unit price must be positive"),
   dto: z.number().min(0, "Discount must be positive"),
   iva: z.number().min(0, "Tax must be positive"),
 });
@@ -37,7 +37,7 @@ export function usePurchaseOrderForm({ defaultValues, onSubmit }: UsePurchaseOrd
         {
           productId: "",
           quantity: 1,
-          unitPrice: 0,
+          price: 0,
           dto: 0,
           iva: 21,
         }

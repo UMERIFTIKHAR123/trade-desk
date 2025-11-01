@@ -1,10 +1,11 @@
-import prisma from "@/lib/prisma"
+import prisma from "../../../../../../src-old/lib/prisma"
 import { notFound } from "next/navigation"
 import Link from "next/dist/client/link"
 import { ArrowLeft, Calendar } from "lucide-react"
-import { formatDate } from "@/lib/utils"
+import { formatDate } from "../../../../../../src-old/lib/utils"
 import { ProductFormV2 } from "../../components/product-form-v2"
-import { getCategories } from "@/lib/get-categories"
+import { getCategories } from "@/lib/db/categories"
+import { getProductUnique } from "@/lib/db/products"
 
 interface Props {
   params: Promise<{ id: string }>
@@ -13,7 +14,7 @@ interface Props {
 export default async function EditProductPage({ params }: Props) {
   const productId = (await params).id;
 
-  const product = await prisma.product.findUnique({
+  const product = await getProductUnique({
     where: { id: productId },
   })
 
@@ -27,7 +28,7 @@ export default async function EditProductPage({ params }: Props) {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center gap-4">
-        <Link href={`/products/${productId}`}>
+        <Link href={`/dashboard/products`}>
           <button className="flex h-10 w-10 items-center justify-center rounded-lg border bg-white hover:bg-gray-50">
             <ArrowLeft className="h-4 w-4" />
           </button>

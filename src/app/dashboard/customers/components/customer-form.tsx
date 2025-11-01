@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "../../../../../src-old/components/ui/button"
+import { Input } from "../../../../../src-old/components/ui/input"
 import {
   Form,
   FormControl,
@@ -13,22 +13,22 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { createCustomer, updateCustomer } from "@/app/dashboard/server-actions/customer-actions"
+} from "../../../../../src-old/components/ui/form"
+import { createCustomer, updateCustomer } from "../../../../../src-old/app/dashboard/server-actions/customer-actions"
 import { toast } from "sonner"
 import { Loader } from "lucide-react"
 import { Customer } from "@prisma/client"
 
 const customerSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
+  email: z.email("Invalid email address").optional().or(z.literal('')),
   phone: z.string().optional(),
 })
 
 type CustomerFormValues = z.infer<typeof customerSchema>
 
 interface Props {
-  customer? : Customer;
+  customer?: Customer;
 }
 
 export default function CustomerForm({ customer }: Props) {
@@ -45,11 +45,18 @@ export default function CustomerForm({ customer }: Props) {
 
   async function onSubmit(values: CustomerFormValues) {
     try {
+
+      const data = {
+        ...values,
+        email: values.email ?? null,
+        phone: values.phone ?? null
+      }
+
       if (customer) {
-        await updateCustomer({ ...values, id: customer.id, phone: values.phone ?? null })
+        await updateCustomer({ ...data, id: customer.id })
         toast.success("Customer updated successfully ✅")
       } else {
-        await createCustomer({ ...values, phone: values.phone ?? null })
+        await createCustomer(data)
         toast.success("Customer created successfully ✅")
         form.reset()
       }
@@ -79,7 +86,7 @@ export default function CustomerForm({ customer }: Props) {
         />
 
         <FormField
-          control={form.control}  
+          control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>

@@ -1,5 +1,5 @@
 'use client'
-import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog"
+import { AlertDialog, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../../src-old/components/ui/alert-dialog"
 import { useState, useTransition } from "react";
 import { Button } from "./ui/button";
 import { Loader } from "lucide-react";

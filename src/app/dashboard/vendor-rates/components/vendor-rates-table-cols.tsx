@@ -1,7 +1,7 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { formatCurrency, formatDate } from "@/lib/utils"
+import { Button } from "../../../../../src-old/components/ui/button"
+import { formatCurrency, formatDate } from "../../../../../src-old/lib/utils"
 import { Product, Vendor, VendorProductRate } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
 import { Edit } from "lucide-react"

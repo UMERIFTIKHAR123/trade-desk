@@ -11,10 +11,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+} from "../../../../../../src-old/components/ui/alert-dialog";
+import { Button } from "../../../../../../src-old/components/ui/button";
 import { Trash2, Loader2 } from "lucide-react";
-import { deleteVendorRate } from "@/app/dashboard/server-actions/vendor-product-rate-actions";
+import { deleteVendorRate } from "../../../../../../src-old/app/dashboard/server-actions/vendor-product-rate-actions";
 import { toast } from "sonner";
 
 export function DeleteRateDialog({ rateId }: { rateId: string }) {

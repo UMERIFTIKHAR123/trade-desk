@@ -1,7 +1,7 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { formatCurrency, formatDate } from "@/lib/utils"
+import { Button } from "../../../../../../src-old/components/ui/button"
+import { formatCurrency, formatDate, formatPurchaseOrderNo } from "../../../../../../src-old/lib/utils"
 import { Customer, PurchaseOrder } from "@prisma/client"
 import { ColumnDef } from "@tanstack/react-table"
 import { FileText } from "lucide-react"
@@ -20,7 +20,7 @@ export const columns: ColumnDef<PurchaseOrderWithCustomer>[] = [
   {
     accessorKey: "orderNo",
     header: "PO#",
-    cell: ({row})=> `PO-${row.original.orderNo.toString().padStart(4, '0')}`
+    cell: ({ row }) => `${formatPurchaseOrderNo(row.original.orderNo)}`
   },
   {
     accessorKey: "customer.name",

@@ -1,12 +1,12 @@
 'use server';
 
-import { ServerActionResponse } from '@/app/types/server-action-response';
-import prisma from '@/lib/prisma';
+import { ServerActionResponse } from '../../../../src-old/app/types/server-action-response';
+import prisma from '../../../../src-old/lib/prisma';
 import { Product } from '@prisma/client';
-import { revalidatePath } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 import { del } from '@vercel/blob';
 
-type CreateProduct = Omit<Product, 'id' | 'createdAt' | 'updatedAt'| 'isDeleted'>;
+type CreateProduct = Omit<Product, 'id' | 'createdAt' | 'updatedAt' | 'isDeleted'>;
 
 export async function createProduct(data: CreateProduct): Promise<ServerActionResponse<Product>> {
 
@@ -16,6 +16,9 @@ export async function createProduct(data: CreateProduct): Promise<ServerActionRe
       data,
     });
 
+    revalidateTag("products")
+    revalidateTag("productUnique")
+    
     return {
       success: true,
       message: 'Product created successfully',
@@ -60,6 +63,9 @@ export async function updateProduct(data: UpdateProduct, isImageReplaced?: boole
       },
     });
 
+    revalidateTag("products")
+    revalidateTag("productUnique")
+
     return {
       success: true,
       message: 'Product updated successfully',
@@ -101,7 +107,8 @@ export async function deleteProduct(id: string): Promise<ServerActionResponse<nu
       });
     }
 
-    revalidatePath('/dashboard/product')
+    revalidateTag("products")
+    revalidateTag("productUnique")
 
     return {
       success: true,

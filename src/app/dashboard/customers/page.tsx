@@ -1,16 +1,13 @@
-import prisma from "@/lib/prisma"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../../../src-old/components/ui/button"
 import Link from "next/link"
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { TableActions } from "./components/customer-table-actions"
 import { Plus, Users } from "lucide-react"
-import { DataTable } from "@/components/ui/data-table"
+import { DataTable } from "../../../../src-old/components/ui/data-table"
 import { columns } from "./components/customers-list"
+import { getCustomers } from "@/lib/db/customers"
 
 export default async function CustomerPage() {
-  const customers = await prisma.customer.findMany({
-    orderBy: { createdAt: "desc" },
-  })
+
+  const customers = await getCustomers();
 
   return (
     <div>

@@ -1,8 +1,8 @@
-import prisma from "@/lib/prisma"
 import { notFound } from "next/navigation"
 import VendorForm from "../../components/vendor-form"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
+import { getVendorUnique } from "@/lib/db/vendors"
 
 interface Props {
   params: Promise<{ id: string }>
@@ -11,7 +11,7 @@ interface Props {
 export default async function EditCustomerPage({ params }: Props) {
   const vendorId = (await params).id
 
-  const vendor = await prisma.vendor.findUnique({
+  const vendor = await getVendorUnique({
     where: { id: vendorId },
   })
 

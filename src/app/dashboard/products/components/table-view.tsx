@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
-import {Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
+import { Button } from "../../../../../src-old/components/ui/button";
+import {Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "../../../../../src-old/components/ui/table";
 import { Package, Edit } from "lucide-react";
 import { DeleteProductButton } from "./delete-product-btn";
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "../../../../../src-old/components/ui/badge";
 import { Category, Product } from "@prisma/client";
 import Link from "next/link";
 
@@ -72,7 +72,7 @@ export function TableView({ products }: { products: (Product & { category: Categ
   );
 }
 
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "../../../../../src-old/components/ui/skeleton";
 
 export function TableSkeleton() {
   return (

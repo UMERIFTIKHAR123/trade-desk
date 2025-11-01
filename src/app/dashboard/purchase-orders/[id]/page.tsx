@@ -1,15 +1,17 @@
-import prisma from "@/lib/prisma";
+import prisma from "../../../../../src-old/lib/prisma";
 import { notFound } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { CalendarDays, Mail, Package, Phone, Receipt, User } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Button } from "../../../../../src-old/components/ui/button";
+import { CalendarDays, Mail, Package, Phone, Receipt, SquarePen, User } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../../src-old/components/ui/card";
+import { Avatar, AvatarFallback } from "../../../../../src-old/components/ui/avatar";
+import { Separator } from "../../../../../src-old/components/ui/separator";
+import { Badge } from "../../../../../src-old/components/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../../../../src-old/components/ui/table";
 import { PurchaseOrderItem } from "@prisma/client";
 import dayjs from "dayjs";
 import Link from "next/link";
+import { getPurchaseOrderUnique } from "@/lib/db/purchase-orders";
+import { formatCurrency, formatDate, formatPurchaseOrderNo } from "../../../../../src-old/lib/utils";
 
 interface Props {
   params: Promise<{ id: string }>
@@ -19,7 +21,7 @@ export default async function PurchaseOrderDetail({ params }: Props) {
 
   const id = (await params).id;
 
-  const purchaseOrder = await prisma.purchaseOrder.findUnique({
+  const purchaseOrder = await getPurchaseOrderUnique({
     where: {
       id
     },
@@ -41,36 +43,39 @@ export default async function PurchaseOrderDetail({ params }: Props) {
     return notFound();
   }
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('es-ES', {
-      style: 'currency',
-      currency: 'EUR',
-    }).format(amount);
-  };
-
-  const formatDate = (date: Date) => {
-    return dayjs(date).format("DD-MM-YYYY hh:mm a")
-  };
-
   const calculateItemTotal = (item: PurchaseOrderItem) => {
-    const subtotal = item.quantity * item.unitPrice;
+    const subtotal = item.quantity * item.price;
     const discounted = subtotal - item.dto;
     return discounted + item.iva;
   };
 
+  const calculateItemSubTotal = (item: PurchaseOrderItem) => {
+    const subtotal = item.quantity * item.price;
+    return subtotal;
+  };
+
   const calculateSubtotal = () => {
     return purchaseOrder.items.reduce((sum, item) => {
-      return sum + (item.quantity * item.unitPrice);
+      return sum + (item.quantity * item.price);
     }, 0);
   };
 
-  const calculateTotalDiscount = () => {
-    return purchaseOrder.items.reduce((sum, item) => sum + item.dto, 0);
-  };
+  function calculateTotalDiscount() {
+    return purchaseOrder!.items.reduce((acc, item) => {
+      const discountPerItem = (item.price * item.dto) / 100;
+      const totalDiscount = discountPerItem * item.quantity;
+      return acc + totalDiscount;
+    }, 0);
+  }
 
-  const calculateTotalTax = () => {
-    return purchaseOrder.items.reduce((sum, item) => sum + item.iva, 0);
-  };
+  function calculateTotalIva() {
+    return purchaseOrder!.items.reduce((acc, item) => {
+      const priceAfterDiscount = item.price - (item.price * item.dto) / 100;
+      const ivaPerItem = (priceAfterDiscount * item.iva) / 100;
+      const totalIva = ivaPerItem * item.quantity;
+      return acc + totalIva;
+    }, 0);
+  }
 
 
 
@@ -80,7 +85,7 @@ export default async function PurchaseOrderDetail({ params }: Props) {
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Purchase Order</h1>
-          <p className="text-gray-600">Order ID: {purchaseOrder.orderNo.toString().padStart(4, '0')}</p>
+          <p className="text-gray-600">PO#: {formatPurchaseOrderNo(purchaseOrder.orderNo)}</p>
         </div>
         <div className="flex gap-2">
           {/* <Button variant="outline">
@@ -88,7 +93,7 @@ export default async function PurchaseOrderDetail({ params }: Props) {
             Download PDF
           </Button> */}
           <Link href={`/dashboard/purchase-orders/${purchaseOrder.id}/edit-v2`}>
-            <Button>Edit Order</Button>
+            <Button variant={'outline'}><SquarePen /> Edit Order</Button>
           </Link>
 
         </div>
@@ -105,33 +110,21 @@ export default async function PurchaseOrderDetail({ params }: Props) {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center gap-3">
-              <Avatar>
-                <AvatarFallback>
-                  {purchaseOrder.customer.name
-                    .split(' ')
-                    .map(n => n[0])
-                    .join('')}
-                </AvatarFallback>
-              </Avatar>
               <div>
                 <p className="font-semibold">{purchaseOrder.customer.name}</p>
                 <p className="text-sm text-gray-600">ID: {purchaseOrder.customer.id}</p>
               </div>
             </div>
 
-            {purchaseOrder.customer.email && (
-              <div className="flex items-center gap-2 text-sm">
-                <Mail className="h-4 w-4 text-gray-400" />
-                <span>{purchaseOrder.customer.email}</span>
-              </div>
-            )}
+            <div className="flex items-center gap-2 text-sm">
+              <Mail className="h-4 w-4 text-gray-400" />
+              <span>{purchaseOrder.customer.email ?? "--"}</span>
+            </div>
 
-            {purchaseOrder.customer.phone && (
-              <div className="flex items-center gap-2 text-sm">
-                <Phone className="h-4 w-4 text-gray-400" />
-                <span>{purchaseOrder.customer.phone}</span>
-              </div>
-            )}
+            <div className="flex items-center gap-2 text-sm">
+              <Phone className="h-4 w-4 text-gray-400" />
+              <span>{purchaseOrder.customer.phone ?? "--"}</span>
+            </div>
           </CardContent>
         </Card>
 
@@ -143,7 +136,7 @@ export default async function PurchaseOrderDetail({ params }: Props) {
               Order Summary
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-2">
             <div className="flex justify-between text-sm">
               <span>Items:</span>
               <span>{purchaseOrder.items.length}</span>
@@ -152,6 +145,19 @@ export default async function PurchaseOrderDetail({ params }: Props) {
               <span>Total Quantity:</span>
               <span>
                 {purchaseOrder.items.reduce((sum, item) => sum + item.quantity, 0)}
+              </span>
+            </div>
+
+            <div className="flex justify-between text-sm">
+              <span>Total Discount:</span>
+              <span>
+                {formatCurrency(calculateTotalDiscount())}
+              </span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span>Total Tax (IVA):</span>
+              <span>
+                {formatCurrency(calculateTotalIva())}
               </span>
             </div>
             <Separator />
@@ -207,6 +213,7 @@ export default async function PurchaseOrderDetail({ params }: Props) {
                   <TableHead>Category</TableHead>
                   <TableHead className="text-right">Unit Price</TableHead>
                   <TableHead className="text-center">Quantity</TableHead>
+                  <TableHead className="text-right">Sub Total</TableHead>
                   <TableHead className="text-right">Discount</TableHead>
                   <TableHead className="text-right">Tax (IVA)</TableHead>
                   <TableHead className="text-right">Total</TableHead>
@@ -226,11 +233,6 @@ export default async function PurchaseOrderDetail({ params }: Props) {
                         )}
                         <div>
                           <p className="font-medium">{item.product.name}</p>
-                          {item.product.description && (
-                            <p className="text-sm text-gray-600 max-w-xs truncate">
-                              {item.product.description}
-                            </p>
-                          )}
                         </div>
                       </div>
                     </TableCell>
@@ -240,7 +242,7 @@ export default async function PurchaseOrderDetail({ params }: Props) {
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right">
-                      {formatCurrency(item.unitPrice)}
+                      {formatCurrency(item.price)}
                     </TableCell>
                     <TableCell className="text-center">
                       <Badge variant="secondary">
@@ -248,10 +250,14 @@ export default async function PurchaseOrderDetail({ params }: Props) {
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right">
-                      {item.dto > 0 ? formatCurrency(item.dto) : '-'}
+                      {formatCurrency(calculateItemSubTotal(item))}
                     </TableCell>
                     <TableCell className="text-right">
-                      {formatCurrency(item.iva)}
+                      {item.dto}%
+                    </TableCell>
+
+                    <TableCell className="text-right">
+                      {item.iva}%
                     </TableCell>
                     <TableCell className="text-right font-medium">
                       {formatCurrency(calculateItemTotal(item))}
@@ -277,7 +283,7 @@ export default async function PurchaseOrderDetail({ params }: Props) {
               </div>
               <div className="flex justify-between text-sm">
                 <span>Total Tax (IVA):</span>
-                <span>{formatCurrency(calculateTotalTax())}</span>
+                <span>{formatCurrency(calculateTotalIva())}</span>
               </div>
               <Separator />
               <div className="flex justify-between text-lg font-semibold">

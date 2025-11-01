@@ -1,19 +1,13 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { formatCurrency } from "@/lib/utils";
+import { Card, CardContent, CardHeader, CardTitle } from "../../../../../src-old/components/ui/card";
+import { Separator } from "../../../../../src-old/components/ui/separator";
+import { formatCurrency } from "../../../../../src-old/lib/utils";
+import { PurchaseOrderItem } from "@prisma/client";
 import { Calculator } from "lucide-react";
 
 
-export interface OrderItem {
-  id?: string;
-  productId: string;
-  quantity: number;
-  unitPrice: number;
-  dto: number;
-  iva: number;
-}
+type OrderItem = (Omit<PurchaseOrderItem, 'id' | 'purchaseOrderId' | 'createdAt' | 'updatedAt'> & { id?: string })
 
 interface OrderSummaryCardProps {
   items: OrderItem[];
@@ -26,7 +20,7 @@ export function OrderSummaryCard({
   originalTotal,
   showChanges = false
 }: OrderSummaryCardProps) {
-  
+
 
   const calculateTotals = () => {
     let subTotal = 0;
@@ -35,16 +29,21 @@ export function OrderSummaryCard({
     let total = 0;
 
     for (const item of items) {
-      const basePrice = item.quantity * item.unitPrice;
-      const discount = basePrice * (item.dto / 100);
+      const { quantity, price, dto, iva } = item;
+
+      const basePrice = quantity * price;
+      const discount = basePrice * (dto / 100);
       const priceAfterDiscount = basePrice - discount;
-      const tax = priceAfterDiscount * (item.iva / 100);
+      const tax = priceAfterDiscount * (iva / 100);
       const finalPrice = priceAfterDiscount + tax;
+
+
 
       subTotal += basePrice;
       totalDiscount += discount;
       totalTax += tax;
       total += finalPrice;
+
     }
 
     return {

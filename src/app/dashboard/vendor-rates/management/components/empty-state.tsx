@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "../../../../../../src-old/components/ui/card";
 import { Store } from "lucide-react";
 
 export function EmptyState() {

@@ -1,11 +1,11 @@
-import { DataTable } from "@/components/ui/data-table";
-import prisma from "@/lib/prisma";
+import { DataTable } from "../../../../src-old/components/ui/data-table";
 import { columns } from "./components/vendor-rates-table-cols";
-import { Button } from "@/components/ui/button";
+import { Button } from "../../../../src-old/components/ui/button";
 import Link from "next/link";
 import { HandCoins, Plus } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "../../../../src-old/components/ui/card";
 import { SearchAndFilters } from "./components/search-filters";
+import { getVendorProductsRates } from "@/lib/db/vendors-products-rates";
 
 
 interface Props {
@@ -17,7 +17,7 @@ export default async function VendorRatesPage({ searchParams }: Props) {
   const _searchParams = (await searchParams);
   const vendorId = _searchParams.vendorId || "all";
 
-  const vendorRates = await prisma.vendorProductRate.findMany({
+  const vendorRates = await getVendorProductsRates({
     where: {
       vendorId: vendorId && vendorId !== "all" ? vendorId : undefined
     },

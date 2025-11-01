@@ -1,7 +1,8 @@
-import { Button } from "@/components/ui/button";
-import prisma from "@/lib/prisma";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { Button } from "../../../../../src-old/components/ui/button";
+import prisma from "../../../../../src-old/lib/prisma";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "../../../../../src-old/components/ui/select";
 import { Search } from "lucide-react";
+import { getVendors } from "@/lib/db/vendors";
 
 export function SearchAndFilters({
   vendorId
@@ -23,7 +24,7 @@ export function SearchAndFilters({
 }
 
 async function VendorFilter({ vendorId }: { vendorId: string }) {
-  const vendors = await prisma.vendor.findMany({
+  const vendors = await getVendors({
     orderBy: { name: "asc" },
   });
 

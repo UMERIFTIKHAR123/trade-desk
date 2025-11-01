@@ -1,18 +1,18 @@
 'use client';
 
-import { Form } from "@/components/ui/form";
-import { PurchaseOrderFormData, usePurchaseOrderForm } from "../../hooks/use-purchase-order-form";
+import { Form } from "../../../../../../src-old/components/ui/form";
+import { PurchaseOrderFormData } from "../../hooks/use-purchase-order-form";
 import { CustomerSelector } from "../../components/customer-selector";
 import { Category, Customer, Product } from "@prisma/client";
 import { OrderSummaryCard } from "../../components/order-summary-card";
 import { OrderItemList } from "../../components/order-item-list";
-import { useOrderCalculations } from "../../hooks/use-order-calculation";
-import { Button } from "@/components/ui/button";
-import { ShoppingCart } from "lucide-react";
-import { createPurchaseOrder } from "@/app/dashboard/server-actions/purchase-order-actions";
+import { Button } from "../../../../../../src-old/components/ui/button";
+import { ReceiptText } from "lucide-react";
+import { createPurchaseOrder } from "../../../../../../src-old/app/dashboard/server-actions/purchase-order-actions";
 import { toast } from "sonner";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { usePurchaseOrder } from "../../context/purchase-order-context";
 
 interface IProps {
   customers: Customer[];
@@ -20,12 +20,25 @@ interface IProps {
 }
 
 export const CreatePurchaseOrderForm = ({ customers, products }: IProps) => {
+
   const router = useRouter();
   const [isSavingPO, startSavingPO] = useTransition();
 
   const savePurchaseOrder = (data: PurchaseOrderFormData) =>
     startSavingPO(async () => {
-      const response = await createPurchaseOrder(data);
+
+      const payload = {
+        customerId: data.customerId,
+        items: data.items.map(({ productId, quantity, price, dto, iva }) => ({
+          productId,
+          quantity,
+          price,
+          dto,
+          iva
+        }))
+      }
+
+      const response = await createPurchaseOrder(payload);
       if (response.success) {
         toast.success(response.message);
         router.push(`/dashboard/purchase-orders/${response.data?.id}`)
@@ -34,19 +47,16 @@ export const CreatePurchaseOrderForm = ({ customers, products }: IProps) => {
       }
     })
 
+  const { form } = usePurchaseOrder();
 
-  const { form, handleSubmit } = usePurchaseOrderForm({
-    onSubmit: async (data) => savePurchaseOrder(data)
-  })
-
-  const { handleProductSelect, handleQuantityChange, handleDiscountChange, } = useOrderCalculations(products);
 
   const watchedItems = form.watch("items") || [];
 
+  console.log(form.formState.errors)
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={form.handleSubmit(savePurchaseOrder)} className="space-y-6">
         <div className="grid gap-6 md:grid-cols-3">
           <div className="md:col-span-2">
             <CustomerSelector customers={customers} form={form} />
@@ -59,9 +69,6 @@ export const CreatePurchaseOrderForm = ({ customers, products }: IProps) => {
         <OrderItemList
           form={form}
           products={products}
-          onProductSelect={(productId, index) => handleProductSelect(productId, index, form.setValue, form.getValues)}
-          onQuantityChange={(index, quantity) => handleQuantityChange(index, quantity, form.setValue, form.getValues)}
-          onDiscountChange={(index, discount) => handleDiscountChange(index, discount, form.setValue, form.getValues)}
         />
 
         {/* Submit Button */}
@@ -78,7 +85,7 @@ export const CreatePurchaseOrderForm = ({ customers, products }: IProps) => {
               </div>
             ) : (
               <div className="flex items-center gap-2">
-                <ShoppingCart className="h-4 w-4" />
+                <ReceiptText />
                 Create Purchase Order
               </div>
             )}

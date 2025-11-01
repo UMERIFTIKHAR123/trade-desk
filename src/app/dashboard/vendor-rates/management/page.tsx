@@ -1,9 +1,10 @@
-import { Skeleton } from "@/components/ui/skeleton";
-import prisma from "@/lib/prisma";
+import { Skeleton } from "../../../../../src-old/components/ui/skeleton";
+import prisma from "../../../../../src-old/lib/prisma";
 import { Suspense } from "react";
 import { VendorSelector } from "./components/vendor-selector";
 import { EmptyState } from "./components/empty-state";
 import { VendorRatesData } from "./components/vendor-rates-data";
+import { getVendors } from "@/lib/db/vendors";
 
 interface Props {
   searchParams: Promise<{ vendorId?: string }>
@@ -14,14 +15,23 @@ export default async function ManagementPage({ searchParams }: Props) {
   const _searchParams = (await searchParams);
   const selectedVendorId = _searchParams.vendorId || null;
 
-  const vendors = await getVendors();
+  const vendors = await getVendors({
+    include: {
+      _count: {
+        select: { VendorProductRate: true }
+      }
+    },
+    orderBy: {
+      name: "asc"
+    }
+  });
 
 
   return (
     <div>
       {/* Header */}
       <div className="flex items-center gap-4 mb-8">
-       
+
         <div>
           <h1 className="text-4xl font-bold tracking-tight mb-2">
             Vendor Product Rates
@@ -60,19 +70,4 @@ export default async function ManagementPage({ searchParams }: Props) {
     </div>
   )
 }
-
-
-function getVendors() {
-  return prisma.vendor.findMany({
-    include: {
-      _count: {
-        select: { VendorProductRate: true }
-      }
-    },
-    orderBy: {
-      name: "asc"
-    }
-  });
-}
-
 

@@ -1,7 +1,7 @@
 'use client';
 
-import { Button } from "@/components/ui/button";
-import { WarnAlertDialog } from "@/components/warn-alert-dialog";
+import { Button } from "../../../../../src-old/components/ui/button";
+import { WarnAlertDialog } from "../../../../../src-old/components/warn-alert-dialog";
 import { Trash2 } from "lucide-react";
 import { deleteProduct } from "../../server-actions/product-actions";
 import { toast } from "sonner";

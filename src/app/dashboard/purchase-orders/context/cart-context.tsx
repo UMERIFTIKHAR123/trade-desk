@@ -6,7 +6,7 @@ type CartItem = {
   name: string;
   price: number;
   quantity: number;
-  imageUrl?: string;
+  imageUrl: string | null;
   dto: number;
   iva: number;
 };
@@ -43,7 +43,7 @@ function cartReducer(state: CartState, action: Action): CartState {
           ...state,
           items: state.items.map(i =>
             i.id === action.payload.id
-              ? { ...i, quantity: i.quantity + action.payload.quantity }
+              ? { ...i, quantity: i.quantity + action.payload.quantity, dto: 0, iva: 21 }
               : i
           )
         };

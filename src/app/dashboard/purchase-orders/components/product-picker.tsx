@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "../../../../../src-old/components/ui/button";
+import { Badge } from "../../../../../src-old/components/ui/badge";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../../../../../src-old/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "../../../../../src-old/components/ui/popover";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../../../src-old/lib/utils";
 import { Category, Product } from "@prisma/client";
 
 interface ProductPickerProps {

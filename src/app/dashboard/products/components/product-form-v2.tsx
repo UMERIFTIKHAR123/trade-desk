@@ -1,20 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../../src-old/components/ui/card";
+import { Button } from "../../../../../src-old/components/ui/button";
+import { Input } from "../../../../../src-old/components/ui/input";
+import { Textarea } from "../../../../../src-old/components/ui/textarea";
+import { Label } from "../../../../../src-old/components/ui/label";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../../../../../src-old/components/ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../../../src-old/components/ui/select";
+import { Alert, AlertDescription } from "../../../../../src-old/components/ui/alert";
 import {
   Save,
   X,
@@ -22,11 +19,9 @@ import {
   ImageIcon,
   Loader2,
   Package,
-  DollarSign,
-  Tag,
-  FileText,
   AlertCircle,
-  Euro
+  Euro,
+  Loader
 } from "lucide-react";
 import Image from "next/image";
 
@@ -35,6 +30,7 @@ import { upload } from '@vercel/blob/client';
 import { createProduct, updateProduct } from "../../server-actions/product-actions";
 import { toast } from "sonner";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const productFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
@@ -89,16 +85,6 @@ export function ProductFormV2({
     };
   }, [imagePreview]);
 
-  const formatCurrency = (value: string) => {
-    const number = parseFloat(value.replace(/[^0-9.]/g, ''));
-    if (isNaN(number)) return "";
-    return number.toFixed(2);
-  };
-
-  const handleImageUrlChange = (url: string) => {
-    setImagePreview(url || null);
-    // form.setValue("imageUrl", url);
-  };
 
   const handleSubmit = async (data: ProductFormData) => {
     setIsLoading(true);
@@ -115,20 +101,27 @@ export function ProductFormV2({
         });
       }
 
+      const baseBody = {
+        name: data.name,
+        description: data.description || "",
+        price: data.price,
+        categoryId: data.categoryId,
+      };
+
       const body = {
         name: data.name,
         description: data.description || "",
         price: data.price,
         categoryId: data.categoryId,
-        imageUrl: newBlob?.url || null,
-        imagePath: newBlob?.pathname || null,
+        imageUrl: newBlob ? newBlob.url : initialData?.imageUrl || "",
+        imagePath: newBlob ? newBlob.pathname : initialData?.imagePath || "",
       }
 
       let response;
       if (mode === 'create') {
         response = await createProduct(body)
       } else {
-        const isImageReplaced = newBlob ? true : false;
+        const isImageReplaced = !!newBlob;
         response = await updateProduct({
           id: initialData?.id!,
           ...body,
@@ -142,11 +135,8 @@ export function ProductFormV2({
         toast.error(response.message);
       }
 
-      if (mode === "create") {
-        form.reset();
-        setImagePreview(null);
-        inputImageRef.current!.value = "";
-      }
+      router.push("/dashboard/products/" + response.data!.id)
+
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
@@ -154,7 +144,7 @@ export function ProductFormV2({
     }
   };
 
-  
+
   const isDirty = form.formState.isDirty;
   const currentImage = imagePreview ?? initialData?.imageUrl ?? null;
 
@@ -264,7 +254,7 @@ export function ProductFormV2({
                       <FormLabel>Category</FormLabel>
                       <Select
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        value={field.value || ""}
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -344,18 +334,18 @@ export function ProductFormV2({
 
                     <>
                       <Image
-                        height={200}
-                        width={200}
+                        height={250}
+                        width={250}
+                        className="object-contain mx-auto"
                         src={currentImage}
                         alt="Product preview"
-                        className="w-full object-cover"
                         onError={() => setImagePreview(null)}
                       />
                       {imagePreview && (
-                        <div className="px-10">
+                        <div className="px-10 ">
                           <Button
                             type="button"
-                            variant="outline"
+                            variant="destructive"
                             size="sm"
                             className="my-5 w-full"
                             onClick={() => {

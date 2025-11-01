@@ -1,12 +1,12 @@
-import prisma from "@/lib/prisma"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../../../src-old/components/ui/button"
 import Link from "next/link"
 import { Plus, Users } from "lucide-react"
-import { DataTable } from "@/components/ui/data-table"
+import { DataTable } from "../../../../src-old/components/ui/data-table"
 import { columns } from "./components/vendors-list"
+import { getVendors } from "@/lib/db/vendors"
 
 export default async function VendorPage() {
-  const vendors = await prisma.vendor.findMany({
+  const vendors = await getVendors({
     orderBy: { createdAt: "desc" },
   })
 

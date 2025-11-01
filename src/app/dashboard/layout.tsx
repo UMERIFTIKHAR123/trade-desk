@@ -1,10 +1,10 @@
-import { AppSidebar } from "@/components/app-sidebar"
-import { Separator } from "@/components/ui/separator"
+import { AppSidebar } from "../../../src-old/components/app-sidebar"
+import { Separator } from "../../../src-old/components/ui/separator"
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from "../../../src-old/components/ui/sidebar"
 import { Avatar } from "@radix-ui/react-avatar"
 
 export default function DashboardLayout({
@@ -26,7 +26,7 @@ export default function DashboardLayout({
 
           </div>
         </header>
-        <div className="min-h-screen bg-gray-50 p-4 md:p-8">
+        <div className="min-h-[100vh] flex-1 rounded-xl md:min-h-min p-8 pt-0">
           {children}
         </div>
 

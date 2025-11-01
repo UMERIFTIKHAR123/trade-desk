@@ -1,7 +1,7 @@
 'use server'
-import { ServerActionResponse } from "@/app/types/server-action-response";
-import prisma from "@/lib/prisma";
-import { revalidatePath } from "next/cache";
+import { ServerActionResponse } from "../../../../src-old/app/types/server-action-response";
+import prisma from "../../../../src-old/lib/prisma";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 interface CreateVendorProductRate {
   vendorId: string;
@@ -28,7 +28,7 @@ export const addUpdateVendorProductRate = async (data: CreateVendorProductRate):
       }
     });
 
-    revalidatePath('/dashboard/vendor-rates/management')
+    revalidateTag('vendorProductsRates')
 
     return {
       success: true,
@@ -51,7 +51,7 @@ export const deleteVendorRate = async (rateId: string): Promise<ServerActionResp
       }
     });
 
-    revalidatePath("/dashboard/vendor-rates/management")
+    revalidateTag('vendorProductsRates')
 
     return {
       success: true,
