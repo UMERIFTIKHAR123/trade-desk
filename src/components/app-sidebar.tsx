@@ -138,7 +138,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar variant="inset" collapsible="icon" {...props}>
       <SidebarHeader>
         {/* <TeamSwitcher teams={data.teams} /> */}
-        <div className="px-3 py-4 text-lg font-medium">The Trade Desk</div>
+        <div className="px-3 py-4 text-lg font-medium">Tag Trading</div>
       </SidebarHeader>
       <SidebarContent>
 
