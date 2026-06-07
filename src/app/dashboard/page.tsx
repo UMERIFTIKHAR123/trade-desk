@@ -1,20 +1,33 @@
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { DashboardOverview } from "./components/dashboard-overview";
 
-
-export default function Page() {
-
+function DashboardSkeleton() {
   return (
-    <div>
+    <div className="space-y-6">
+      <Skeleton className="h-[88px] rounded-xl sm:h-[96px]" />
 
-     
-      {/* <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-
-          <div className="bg-muted/50 aspect-video rounded-xl" />
-          <div className="bg-muted/50 aspect-video rounded-xl" />
-          <div className="bg-muted/50 aspect-video rounded-xl" />
+      <div className="overflow-x-auto pb-1 lg:overflow-visible">
+        <div className="grid min-w-[750px] grid-cols-5 gap-3 lg:min-w-0 lg:w-full">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Skeleton key={i} className="h-36 rounded-xl" />
+          ))}
         </div>
-        <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
-      </div> */}
+      </div>
+
+      <div className="grid gap-6 xl:grid-cols-3">
+        <Skeleton className="h-[420px] rounded-xl xl:col-span-2" />
+        <Skeleton className="h-[420px] rounded-xl xl:col-span-1" />
+      </div>
+      <Skeleton className="h-[380px] rounded-xl" />
     </div>
-  )
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<DashboardSkeleton />}>
+      <DashboardOverview />
+    </Suspense>
+  );
 }
