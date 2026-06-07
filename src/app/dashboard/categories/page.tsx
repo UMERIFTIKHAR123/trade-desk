@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/table"
 
 import { TableActions } from "./components/table-actions";
+import { CreateCategoryModal } from "./components/create-category-modal"
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Boxes, Plus } from "lucide-react";
@@ -30,13 +31,14 @@ export default async function CategoryPage() {
           </p>
         </div>
         <div className="flex items-center gap-3">
-
-          <Button asChild size="lg">
-            <Link href="/dashboard/categories/new">
-              <Plus className="h-5 w-5 mr-2" />
-              Add Category
-            </Link>
-          </Button>
+          <CreateCategoryModal
+            trigger={
+              <Button size="lg">
+                <Plus className="h-5 w-5 mr-2" />
+                Add Category
+              </Button>
+            }
+          />
         </div>
       </div>
 
