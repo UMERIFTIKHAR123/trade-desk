@@ -11,7 +11,6 @@ import {
 import { TableActions } from "./components/table-actions";
 import { CreateCategoryModal } from "./components/create-category-modal"
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { Boxes, Plus } from "lucide-react";
 import { getCategories } from "@/lib/db/categories";
 
