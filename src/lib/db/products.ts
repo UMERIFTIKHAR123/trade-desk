@@ -14,6 +14,18 @@ export const getProducts = async <T extends Prisma.ProductFindManyArgs>(
   return cachedQuery();
 };
 
+export const getProductsCount = async (
+  where?: Prisma.ProductWhereInput
+): Promise<number> => {
+  const cachedQuery = unstable_cache(
+    async () => prisma.product.count({ where }),
+    ['productsCount', JSON.stringify(where)],
+    { tags: ['products'] }
+  );
+
+  return cachedQuery();
+};
+
 export const getProductUnique = async <T extends Prisma.ProductFindUniqueArgs>(
   args: Prisma.SelectSubset<T, Prisma.ProductFindUniqueArgs>
 ): Promise<Prisma.ProductGetPayload<T> | null> => {
