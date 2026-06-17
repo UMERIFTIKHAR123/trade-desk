@@ -21,6 +21,7 @@ import {
   Users2,
 } from "lucide-react"
 
+import Link from "next/link"
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
@@ -138,7 +139,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar variant="inset" collapsible="icon" {...props}>
       <SidebarHeader>
         {/* <TeamSwitcher teams={data.teams} /> */}
-        <div className="px-3 py-4 text-lg font-medium">Tag Trading</div>
+        <Link
+          href="/dashboard"
+          className="block px-3 py-4 text-lg font-medium hover:text-primary transition-colors"
+        >
+          Tag Trading
+        </Link>
       </SidebarHeader>
       <SidebarContent>
 
