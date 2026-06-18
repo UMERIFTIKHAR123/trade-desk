@@ -3,7 +3,7 @@
 import { PurchaseOrder, PurchaseOrderItem } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { ServerActionResponse } from "@/app/types/server-action-response";
-import { revalidateTag } from "next/cache";
+import { updateTag } from "next/cache";
 
 type CreatePurchaseOrder = { customerId: string; items: Omit<PurchaseOrderItem, 'id' | 'purchaseOrderId' | 'createdAt' | 'updatedAt'>[] }
 
@@ -33,8 +33,8 @@ export const createPurchaseOrder = async (data: CreatePurchaseOrder): Promise<Se
       }
     });
 
-    revalidateTag('purchaseOrderUnique');
-    revalidateTag('purchaseOrders');
+    updateTag('purchaseOrderUnique');
+    updateTag('purchaseOrders');
 
     return {
       success: true,
@@ -86,8 +86,8 @@ export const updatePurchaseOrder = async (id: string, data: CreatePurchaseOrder)
       }
     });
 
-    revalidateTag('purchaseOrderUnique');
-    revalidateTag('purchaseOrders');
+    updateTag('purchaseOrderUnique');
+    updateTag('purchaseOrders');
 
     return {
       success: true,
@@ -115,8 +115,8 @@ export const deletePurchaseOrder = async (id: string): Promise<ServerActionRespo
       where: { id }
     });
 
-    revalidateTag('purchaseOrderUnique');
-    revalidateTag('purchaseOrders');
+    updateTag('purchaseOrderUnique');
+    updateTag('purchaseOrders');
 
     return {
       success: true,

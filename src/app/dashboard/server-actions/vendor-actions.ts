@@ -3,7 +3,7 @@
 import { ServerActionResponse } from "@/app/types/server-action-response";
 import prisma from "@/lib/prisma";
 import { Vendor } from "@prisma/client";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { updateTag } from "next/cache";
 
 type CreateVendor = Omit<Vendor, "id" | "createdAt" | "updatedAt">;
 
@@ -11,7 +11,7 @@ export async function createVendor(data: CreateVendor): Promise<ServerActionResp
   try {
     const vendor = await prisma.vendor.create({ data });
 
-    revalidateTag("vendors");
+    updateTag("vendors");
     return {
       success: true,
       message: "Vendor created successfully",
@@ -35,7 +35,7 @@ export async function updateVendor(data: UpdateVendor): Promise<ServerActionResp
       data,
     });
 
-    revalidateTag("vendors");
+    updateTag("vendors");
 
     return {
       success: true,
@@ -55,7 +55,7 @@ export async function deleteVendor(id: string): Promise<ServerActionResponse<nul
   try {
     await prisma.vendor.delete({ where: { id } });
 
-    revalidateTag("vendors");
+    updateTag("vendors");
 
     return {
       success: true,

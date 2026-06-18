@@ -3,7 +3,7 @@
 import { ServerActionResponse } from '@/app/types/server-action-response';
 import prisma from '@/lib/prisma';
 import { Category } from '@prisma/client';
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { updateTag } from 'next/cache';
 
 type CreateCategory = Omit<Category, 'id' | 'createdAt' | 'updatedAt'>;
 
@@ -26,8 +26,8 @@ export async function createCategory(data: CreateCategory): Promise<ServerAction
     const category = await prisma.category.create({
       data,
     });
-    revalidateTag("categories");
-    revalidateTag("categoryUnique");
+    updateTag("categories");
+    updateTag("categoryUnique");
 
     return {
       success: true,
@@ -65,8 +65,8 @@ export async function updateCategory(id: string, data: CreateCategory): Promise<
       data,
     });
 
-    revalidateTag("categories");
-    revalidateTag("categoryUnique");
+    updateTag("categories");
+    updateTag("categoryUnique");
     return {
       success: true,
       message: 'Category updated successfully',
@@ -90,8 +90,8 @@ export async function deleteCategory(id: string): Promise<ServerActionResponse<n
       where: { id }
     });
 
-    revalidateTag("categories");
-    revalidateTag("categoryUnique");
+    updateTag("categories");
+    updateTag("categoryUnique");
 
     return {
       success: true,

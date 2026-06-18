@@ -3,7 +3,7 @@
 import { ServerActionResponse } from '@/app/types/server-action-response';
 import prisma from '@/lib/prisma';
 import { Product } from '@prisma/client';
-import { revalidateTag } from 'next/cache';
+import { updateTag } from 'next/cache';
 import { del } from '@vercel/blob';
 
 type CreateProduct = Omit<Product, 'id' | 'createdAt' | 'updatedAt' | 'isDeleted'>;
@@ -16,8 +16,8 @@ export async function createProduct(data: CreateProduct): Promise<ServerActionRe
       data,
     });
 
-    revalidateTag("products")
-    revalidateTag("productUnique")
+    updateTag("products")
+    updateTag("productUnique")
     
     return {
       success: true,
@@ -63,8 +63,8 @@ export async function updateProduct(data: UpdateProduct, isImageReplaced?: boole
       },
     });
 
-    revalidateTag("products")
-    revalidateTag("productUnique")
+    updateTag("products")
+    updateTag("productUnique")
 
     return {
       success: true,
@@ -107,8 +107,8 @@ export async function deleteProduct(id: string): Promise<ServerActionResponse<nu
       });
     }
 
-    revalidateTag("products")
-    revalidateTag("productUnique")
+    updateTag("products")
+    updateTag("productUnique")
 
     return {
       success: true,

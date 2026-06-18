@@ -3,7 +3,7 @@
 import { ServerActionResponse } from "@/app/types/server-action-response";
 import prisma from "@/lib/prisma";
 import { Customer } from "@prisma/client";
-import { revalidateTag } from "next/cache";
+import { updateTag } from "next/cache";
 
 type CreateCustomer = Omit<Customer, "id" | "createdAt" | "updatedAt">;
 
@@ -11,8 +11,8 @@ export async function createCustomer(data: CreateCustomer): Promise<ServerAction
   try {
     const customer = await prisma.customer.create({ data });
 
-    revalidateTag("customers");
-    revalidateTag("customerUnique")
+    updateTag("customers");
+    updateTag("customerUnique")
 
     return {
       success: true,
@@ -37,8 +37,8 @@ export async function updateCustomer(data: UpdateCustomer): Promise<ServerAction
       data,
     });
 
-    revalidateTag("customers");
-    revalidateTag("customerUnique")
+    updateTag("customers");
+    updateTag("customerUnique")
 
     return {
       success: true,
@@ -58,8 +58,8 @@ export async function deleteCustomer(id: string): Promise<ServerActionResponse<n
   try {
     await prisma.customer.delete({ where: { id } });
 
-    revalidateTag("customers");
-    revalidateTag("customerUnique")
+    updateTag("customers");
+    updateTag("customerUnique")
 
     return {
       success: true,
